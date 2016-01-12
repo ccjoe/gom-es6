@@ -1,4 +1,4 @@
-import * as Modal from '../ui/ui.modal';
+import {Modals} from '../ui/ui.modal';
 var loading;
 //要达到的设定有：
 //支持实际场景不跨域开发跨域时的配置 devCrossDomain: true(CROS)
@@ -36,10 +36,10 @@ var inject = function(req, res){
 $.ajaxSettings.timeout = 1000 * 60; //默认超时时间为1分钟
 $.ajaxSettings.error = function(xhr, errorType) {
     if (errorType === 'timeout') {
-        Modal.toast('信号偏弱，访问超时', 'error');
+        Modals.toast('信号偏弱，访问超时', 'error');
     } else if (errorType === 'error') {
         var statusCode = xhr.status;
-        Modal.toast('请求发生错误,状态码:' +statusCode, 'error');
+        Modals.toast('请求发生错误,状态码:' +statusCode, 'error');
         if (statusCode === 404 || statusCode === 500) {   //处理状态码错误
             //window.location.href = '?' + statusCode;
         }
@@ -47,7 +47,7 @@ $.ajaxSettings.error = function(xhr, errorType) {
 };
 
 $(document).on('ajaxBeforeSend', function(e, xhr, options){
-    loading = Modal.loading(false).render();
+    loading = Modals.loading(false).render();
     var req = modelInject.request(e, xhr, options);
     if(req === false) return false;  //阻击发出请求
 }).on('ajaxComplete', function(e, xhr, options){

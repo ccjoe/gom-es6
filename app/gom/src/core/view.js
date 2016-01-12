@@ -39,7 +39,6 @@ function _compile(template){
 }
 
 var template = function(tmpl, data){
-    console.log(tmpl, data, 'tmpldata');
     var parse = eval(_compile(tmpl));
     if(!data){
         return tmpl;

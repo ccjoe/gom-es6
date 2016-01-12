@@ -43,12 +43,12 @@
 */
 import Header from './ui.header';
 import List   from './ui.list';
-import * as Modal from './ui.modal';
+import {Modals} from './ui.modal';
 import Sides  from './ui.sides';
 import Scroll from './ui.scroll';
 import Slide  from './ui.slide';
 import Select from './ui.select';
 import * as Forms from './ui.forms';
-export {Header, List, Modal, Sides, Scroll, Slide, Select};
+export {Header, List, Modals, Sides, Scroll, Slide, Select};
 
 

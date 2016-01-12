@@ -1,5 +1,5 @@
 import {UI} from '../../gom/src/gom';
-        var Modal = UI.Modal;
+        var Modals = UI.Modals;
         var List = UI.List;
     'use strict';
     export default {
@@ -21,36 +21,36 @@ import {UI} from '../../gom/src/gom';
             'click .popover, .popover-top, .popover-bottom': 'popIt'
         },
         createAlert: function(){
-            Modal.alert({content: '这是一个测试对话框，这里可以是html',
+            Modals.alert({content: '这是一个测试对话框，这里可以是html',
                 onYes: function(){
-                    Modal.toast('点击了确定');
+                    Modals.toast('点击了确定');
                 }});
         },
         createLoading: function(){
-            Modal.loading().render();
+            Modals.loading().render();
         },
         preload: function(){
             $('.preload-wrapper').show();
-            var preload = Modal.loading(false, '.preload-wrapper', 0.8).render();
+            var preload = Modals.loading(false, '.preload-wrapper', 0.8).render();
             //preload.remove();
         },
         createConfirm: function(){
-            Modal.confirm({content: '这是一个测试对话框，这里可以是html',
+            Modals.confirm({content: '这是一个测试对话框，这里可以是html',
                 onYes: function(){
-                    Modal.toast('点击了确定');
+                    Modals.toast('点击了确定');
                 },
                 onNo: function(){
-                    Modal.toast('点击了取消');
+                    Modals.toast('点击了取消');
                 }}
             );
         },
         createToast: function(){
             var toastType = $('#toastType').val();
             console.log('选择的是：'+toastType);
-           Modal.toast('这是toast信息', toastType);
+           Modals.toast('这是toast信息', toastType);
         },
         createCenter: function(){
-            Modal.center({title: '中间弹出层', content: '骚年,举起你的双手，来创造一个对话框，OK?'});
+            Modals.center({title: '中间弹出层', content: '骚年,举起你的双手，来创造一个对话框，OK?'});
         },
         createBottom: function(){
             var viewList = {
@@ -69,25 +69,25 @@ import {UI} from '../../gom/src/gom';
                 //wrapper: '#list2'
             });
             var cont = ListSet.render();
-            Modal.bottom({title: '请看列表', content: cont,
+            Modals.bottom({title: '请看列表', content: cont,
                 onYes: function(){
-                    Modal.toast('点击了确定');
+                    Modals.toast('点击了确定');
                 },
                 onNo: function(){
-                    Modal.toast('点击了取消');
+                    Modals.toast('点击了取消');
                 }});
         },
         popup: function(){
-            Modal.popup({title: 'POPUP弹出', content: '<p class="content-padded">这里写些什么呢?</p>',
+            Modals.popup({title: 'POPUP弹出', content: '<p class="content-padded">这里写些什么呢?</p>',
                 onYes: function(){
-                    Modal.toast('点击了确定');
+                    Modals.toast('点击了确定');
                 }});
         },
         createTop: function(){
-            Modal.top({title:'一般用作通知吧', content: '显示在头部的内容或html,没有关闭项？自动定义去吧'});
+            Modals.top({title:'一般用作通知吧', content: '显示在头部的内容或html,没有关闭项？自动定义去吧'});
         },
         popIt: function(e, current){
-            Modal.popover({bindElem: current, content:'<ul class="table-view">\
+            Modals.popover({bindElem: current, content:'<ul class="table-view">\
             <li class="table-view-cell loading"><a class="navigate-right">Loading</a></li>\
             <li class="table-view-cell confirm"><a class="navigate-right">confirm</a></li>\
             <li class="table-view-cell alert"><a class="navigate-right">alert</a></li>\
@@ -101,7 +101,7 @@ import {UI} from '../../gom/src/gom';
             this.page.refreshEvent('.modal-layout', this);
         },
         createTips: function(e, current){
-            Modal.tips({bindElem: current, content: '小提示的内容很多很多很多很多很多很多的时候呢?'});
+            Modals.tips({bindElem: current, content: '小提示的内容很多很多很多很多很多很多的时候呢?'});
         }
     };
 

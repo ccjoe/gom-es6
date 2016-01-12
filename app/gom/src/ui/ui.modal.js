@@ -122,8 +122,8 @@ class Modal extends View {
      * @returns {*|jQuery|HTMLElement}
      */
     getModal (){
-        var $el = this.wrapper.length ? this.wrapper : $('body');
-        var ist = this.is('toast'); isl = this.is('loading');
+        let $el = this.wrapper.length ? this.wrapper : $('body');
+        let ist = this.is('toast'), isl = this.is('loading');
         if(ist) return $el.find('> .modal-toast');
         if(isl) return $el.find('> .modal-loading');
         return $el.find('> .modal-layout');
@@ -155,7 +155,7 @@ class Modal extends View {
         }
     }
     scaleInModal (){
-        var size = 1; dsize = this.data.size;
+        let size = 1, dsize = this.data.size;
         if(dsize) size = dsize;
         this.getModal().css({opacity: 0.8, transform: 'scale(1.2)'}).fx({opacity: 1, scale: size, perspective:1000}, 500, 'easeOutCirc');
     }
@@ -211,7 +211,7 @@ class Modal extends View {
     }
 }
 
-let ModalExtend = {
+let Modals = {
     /**
      * 此方法一般用于自定义弹出层组件, 抽象类Modal的抽象实例
      * @method Gom.UI.Modal.layout
@@ -421,4 +421,4 @@ let ModalExtend = {
     }
 };
 
-export {Modal, ModalExtend};
+export {Modal, Modals};

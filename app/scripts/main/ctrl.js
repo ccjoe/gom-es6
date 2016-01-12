@@ -62,7 +62,6 @@ var main =  {
     },
 
     mainList: function() {
-        console.log(ListSet, 'ListSet');
         $('#indexList').html(ListSet);
     },
 
