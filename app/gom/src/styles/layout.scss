@@ -1,0 +1,44 @@
+body{
+    min-width: 300px;
+}
+
+body, .ui-modal, .modal-overlay, input, textarea, select, header, footer, section, button{
+    outline: none;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+
+.table-view-cell{
+    img{
+        width: 60px;
+    }
+}
+
+[data-ui-widget]{
+    visibility: hidden;
+}
+.ui-viewport {
+    //position: relative;
+    //width: 100%;
+    //height: 100%;
+    //overflow: hidden;
+    //background: #000;
+}
+.gom-content{
+    margin-top: 44px;
+    position: absolute;
+    left:0; top:0;
+    //box-sizing: border-box;
+    //-webkit-transition: transform 350ms;
+    //transition: transform 350ms;
+}
+/*.gom-content-left{
+    opacity: 0.9;
+    transform: translate3d(-20%, 0, 0);
+}
+.gom-content-center{
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}.gom-content-right{
+    opacity: 1;
+    transform: translate3d(100%, 0, 0);
+}*/

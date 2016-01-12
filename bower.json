@@ -1,0 +1,12 @@
+{
+    "name": "gom",
+    "private": true,
+    "dependencies": {},
+    "comments": {
+        "fastclick": "1.0.6",
+        "underscore": "~1.7.0",
+        "zepto-full": "~1.1.2",
+        "requirejs": "~2.1.15",
+        "history.js": "~1.8.0"
+    }
+}

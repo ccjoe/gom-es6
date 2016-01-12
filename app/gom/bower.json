@@ -1,0 +1,33 @@
+{
+  "name": "gom",
+  "version": "1.0.0",
+  "homepage": "https://github.com/ccjoe/gom",
+  "description": "mobile framework use html5_history_router and simple use but stronge struct for rich_ui_component",
+    "main": [
+    "./build/css/gom.css",
+    "./build/gom.js"
+    ],
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "keywords": [
+    "html5",
+    "mobile",
+    "history",
+    "component",
+    "ui",
+    "route"
+  ],
+  "authors": [
+    "icareu.joe@gmail.com"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

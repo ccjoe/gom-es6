@@ -1,0 +1,96 @@
+<div class="content">
+    <p class="content-padded">带输入组和标签的表单(声明为Form组件【data-ui-widget="Form"】会刷新会自动填上记住所选)</p>
+    <form class="input-group" data-ui-widget="Form" id="inputGroupLabel">
+        <div class="input-row">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="icareu.joe@gmail.com">
+        </div>
+        <div class="input-row">
+            <label>用户名</label>
+            <input type="text" name="name"  placeholder="Joe">
+        </div>
+        <div class="input-row">
+            <label>年代</label>
+            <div class="range-slider"><input type="range"  name="age"  min="60" max="99" value="80" step="1"></div>
+        </div>
+        <div class="input-row">
+            <label>日期</label>
+            <input type="date" placeholder="Birth day"  name="birthday"  value="2015-08-30" class="">
+        </div>
+        <div class="input-row">
+            <label>时间</label>
+            <div class="input">
+                <div class="input-gom-select" data-ui-widget="Select" data-opts='{"title": "时间选择器","modal": false, "cascade": false,
+                "level": 2, "yardNo": 1, "list": {"1":["上午","下午"], "2":["1点","2点","3点","4点","5点","6点","7点","8点","9点","10点","11点","12点"]}}'>
+                </div>
+            </div>
+        </div>
+        <div class="input-row gom-location">
+            <label>位置</label>
+            <div class="input-location" name="position"></div>
+        </div>
+        <div class="input-row">
+            <label>性别</label>
+            <select class="input" name="sex">
+                <option>Male</option>
+                <option>Female</option>
+            </select>
+        </div>
+        <div class="input-row">
+            <label>已婚</label>
+            <input type="hidden" name="married">
+            <div class="input" data-ui-widget="Toggle"></div>
+        </div>
+        <ul class="table-view">
+            <li class="table-view-cell">
+                公母(声明式定义togger):
+                <input type="hidden" name="gm">
+                <div data-ui-widget="Toggle"></div>
+            </li>
+            <li class="table-view-cell">
+                性取向(函数式定义togger):
+                <input type="hidden" name="xqx" value="true">
+                <div class="toggle-wrapper"></div>
+            </li>
+        </ul>
+        <ul class="table-view"  data-ui-widget="CheckBox">
+            <input type="hidden" name="checkboxval" />
+            <li class="table-view-cell item active"  data-keyval="1">
+                <label>复选框,默认选中则加上active</label>
+            </li>
+            <li  class="table-view-cell item"  data-keyval="2">
+                <label>复选框子项</label>
+            </li>
+            <li  class="table-view-cell item" data-keyval="3">
+                <label>复选框子项</label>
+            </li>
+        </ul>
+        <ul class="table-view" data-ui-widget="Radio">
+            <input type="hidden" name="radioval" />
+            <li  class="table-view-cell item" data-keyval="1">
+                <label>单选框</label>
+            </li>
+            <li  class="table-view-cell item active"  data-keyval="2">
+                <label>默认选中需要加上active</label>
+            </li>
+            <li  class="table-view-cell item"  data-keyval="3">
+                <label>单选框子项</label>
+            </li>
+        </ul>
+    </form>
+
+    <p class="content-padded">带输入组的表单</p>
+    <form class="input-group">
+        <input type="text" placeholder="用户名">
+        <input type="email" placeholder="Email">
+        <input type="date" placeholder="Birth day" value="2015-08-30" class="">
+    </form>
+
+    <p class="content-padded">表单</p>
+    <form class="content-padded">
+        <input type="text" placeholder="Full name">
+        <input type="search" placeholder="Search">
+        <textarea rows="5"></textarea>
+        <button class="btn btn-positive btn-block">Choose existing</button>
+    </form>
+</div>

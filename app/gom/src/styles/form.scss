@@ -1,0 +1,184 @@
+.range-slider {
+    position: relative;
+    overflow: hidden;
+    -ms-flex-item-align: center;
+    -webkit-align-self: center;
+    align-self: center;
+    padding: 0 15px;
+}
+.range-slider input[type="range"] {
+    position: relative;
+    height: 34px;
+    margin: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    background: -webkit-gradient(linear, 50% 0, 50% 100%, color-stop(0, #b7b8b7), color-stop(100%, #b7b8b7));
+    background: linear-gradient(to right, #b7b8b7 0, #b7b8b7 100%);
+    background-position: center;
+    background-size: 100% 2px;
+    background-repeat: no-repeat;
+    outline: 0;overflow: hidden;
+    width: 100%;
+}
+.range-slider input[type="range"]:after {
+    height: 2px;
+    background: #fff;
+    content: ' ';
+    width: 5px;
+    top: 50%;
+    margin-top: -1px;
+    left: -5px;
+    z-index: 1;
+    position: absolute;
+}
+.range-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    border: none;
+    height: 28px;
+    width: 28px;
+    position: relative;
+    background: none;
+}
+.range-slider input[type="range"]::-webkit-slider-thumb:after {
+    height: 28px;
+    width: 28px;
+    border-radius: 28px;
+    background: #fff;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: ' ';
+}
+.range-slider input[type="range"]::-webkit-slider-thumb:before {
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    width: 2000px;
+    height: 2px;
+    margin-top: -1px;
+    z-index: 1;
+    background: #007aff;
+    content: ' ';
+}
+
+.input-row {
+    height: 40px;
+    line-height: 25px;
+    label{
+        height: 40px;
+    }
+    .input{
+        float: right;
+        height: 40px;
+        width: 65%;
+        //padding-left: 0;
+        margin-bottom: 0;
+        border: 0;
+        background: none;
+        box-shadow: none;
+    }
+    select{
+        padding: 10px 15px!important;
+    }
+    .toggle{
+        width: 50px;
+        height: 30px;
+        margin: 5px 13px;
+        border: 2px solid #e6e6e6;
+    }
+    .input-gom-select{
+        margin-top: 3px;
+    }
+}
+
+.gom-location{
+    position: relative;
+    .icon-area{
+        position: absolute;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        border-left: 1px solid #eee;
+        text-align: center;
+    }
+}
+
+
+//checkbox
+.gom-checkbox, .gom-radio{
+
+        position: relative;
+        label {
+            cursor: pointer;
+        }
+        label:before, label:after {
+            font-family: FontAwesome;
+            font-size: 21px;
+            /*absolutely positioned*/
+            position: absolute; top: 11px;
+            width: 22px;
+            height: 22px;
+            border-radius: 22px;
+            box-sizing: border-box;
+            background-color: #007aff;
+            content: '';
+        }
+        label:after {
+            content: '';
+            background: no-repeat center;
+            -webkit-background-size: 12px 9px;
+            background-size: 12px 9px;
+
+            max-width: 0;
+            overflow: hidden;
+            opacity: 0.5;
+            transition: all 0.2s;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            display: none;
+        }
+        input[type="checkbox"]:checked ~ label:after,
+        input[type="radio"]:checked ~ label:after,
+        .item.active label:after{
+            max-width: 25px; /*an arbitratry number more than the icon's width*/
+            opacity: 1; /*for fade in effect*/
+        }
+
+}
+
+.gom-checkbox{
+    label:after{
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20x%3D'0px'%20y%3D'0px'%20viewBox%3D'0%200%2012%209'%20xml%3Aspace%3D'preserve'%3E%3Cpolygon%20fill%3D'%23ffffff'%20points%3D'12%2C0.7%2011.3%2C0%203.9%2C7.4%200.7%2C4.2%200%2C4.9%203.9%2C8.8%203.9%2C8.8%203.9%2C8.8%20'%2F%3E%3C%2Fsvg%3E");
+    }
+}
+.gom-radio{
+    label:after{
+        background: #FFFFFF;
+        width: 8px;
+        height: 8px;
+        margin: 7px;
+    }
+}
+
+.gom-checkbox-left,.gom-radio-left{
+    label{
+        padding-left: 30px;
+    }
+    label:before, label:after{
+        left:$gapH;
+    }
+}
+.gom-checkbox-right,.gom-radio-right{
+    label:before, label:after{
+        right:$gapH;
+    }
+}

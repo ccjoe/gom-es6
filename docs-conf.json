@@ -1,0 +1,42 @@
+{
+	"tags": {
+		"allowUnknownTags" : true
+	},
+    "source": {
+        "excludePattern": "(node_modules/|docs)",
+        "exclude": [
+            "gom/src/3rd"
+        ]
+    },
+	"plugins": ["plugins/markdown"],
+	"templates": {
+		"cleverLinks": true,
+		"monospaceLinks": true,
+		"default": {
+			"outputSourceFiles" : true
+		},
+		"applicationName": "GomUI",
+		"googleAnalytics": "",
+		"openGraph": {
+			"title": "",
+			"type": "website",
+			"image": "",
+			"site_name": "",
+			"url": ""
+		},
+		"meta": {
+			"title": "Gom GomUI",
+			"description": "Gom for Go mobile!",
+			"keyword": "Gom, GomUI, go mobile"
+		},
+		"linenums": false
+	},
+	"markdown": {
+		"parser": "gfm",
+		"hardwrap": true,
+		"tags": ["examples"]
+	},
+    "opts": {
+        "encoding": "utf8"
+    }
+}

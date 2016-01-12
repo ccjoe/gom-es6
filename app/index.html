@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="H5 MVC APP">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"> <!-- Sets initial viewport load and disables zooming  -->
+    <meta name="apple-mobile-web-app-capable" content="yes"> <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="GoMAPP"> <!-- 添加到主屏后的标题（iOS 6 新增） -->
+    <meta name="format-detection" content="telphone=no, email=no">  <!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+    <meta name="renderer" content="webkit"> <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="HandheldFriendly" content="true"> <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="screen-orientation" content="portrait"> <!-- uc强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">  <!-- QQ强制竖屏 -->
+    <meta name="full-screen" content="yes"> <!-- UC强制全屏 -->
+    <meta name="x5-fullscreen" content="true"> <!-- QQ强制全屏 -->
+    <meta name="browsermode" content="application"> <!-- UC应用模式 -->
+    <meta name="x5-page-mode" content="app">  <!-- QQ应用模式 -->
+    <meta name="msapplication-tap-highlight" content="no"> <!-- windows phone 点击无高光 -->
+    <title>h5 mvc</title>
+    <link href="./favicon.ico" type="image/x-icon" rel=icon> <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- build:css css/all.css -->
+    <link rel="stylesheet" href="gom/build/css/gom.css">
+    <link rel="stylesheet" href="css/main.css">
+    <!-- endbuild -->
+</head>
+
+<body>
+<!--[if lt IE 10]><p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.<br>您正在使用的浏览器<strong>太过古老</strong>， 请<a href="http://browsehappy.com/">升级浏览器</a>来改善浏览体验!</p><![endif]-->
+<!--页面区-->
+<div id="page">
+    <!--页面区HEADER-->
+    <header id="header" class="bar bar-nav"  data-ui-widget="Header">GOM APP</header>
+    <!--页面区主体内容-->
+    <div class="ui-viewport" id="viewport">
+
+    </div>
+    <!--页面区FOOTER-->
+    <footer id="footer"></footer>
+</div>
+<!--层区-->
+<div class="ui-sides" id="sides"></div>
+<div class="modal-overlay"></div>
+<!-- 加载Traceur编译器 -->
+<!--<script src="http://google.github.io/traceur-compiler/bin/traceur.js" type="text/javascript"></script>
+<script src="http://google.github.io/traceur-compiler/src/bootstrap.js" type="text/javascript"></script>
+<script>
+    traceur.options.experimental = true; //打开实验选项，否则有些特性可能编译不成功
+</script>-->
+
+<script src="gom/build/base.js"></script>
+<!--<script src="gom.js"></script>-->
+<script src="app.js"></script>
+
+<!--在HTML里没有引入gomjs的话，可以在app.js里用requirejs引入开发与Build版本的gomjs-->
+<!--dev-->
+<!--<script src="gom/src/gom.js" data-gom-path></script>-->
+<!--dev end-->
+<!--prod-->
+<!--<script src="gom/build/gom.js" data-gom-path></script>-->
+<!--prod end-->
+
+</body>
+</html>

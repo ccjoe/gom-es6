@@ -1,0 +1,62 @@
+$selectItemHeight: 33px;
+.gom-ui-select{
+    position: relative;
+}
+
+.input-row {
+    .gom-ui-select{
+        height: 33px;
+    }
+    .ss-cell-yard{
+        border: 0;
+    }
+}
+
+.ui-scroll-select{
+    display: flex;
+    height: 100%;
+    .ui-scroll-select-item{
+        flex: 1;
+    }
+    .gom-scroll{
+        background-color: transparent;
+    }
+}
+
+.ss-cell-yard{
+    position: absolute;
+    top: $selectItemHeight*2;
+    height: $selectItemHeight;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.ss-cell{
+    flex: 1;
+    padding: $selectItemHeight*2 0;
+    .table-view{
+        background: none;
+    }
+    .table-view-cell{
+        padding: 0;
+        height: $selectItemHeight;
+        line-height: $selectItemHeight;
+        text-align: center;
+        background-image: none!important;
+        a{
+            margin: 0;
+        }
+        &.active{
+            font-weight: bold;
+            color: #007aff;
+        }
+        & > a:not(.btn){
+            padding: 0;
+        }
+        .navigate-right:after, .push-right:after{
+            display: none;
+        }
+    }
+}

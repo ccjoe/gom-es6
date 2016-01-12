@@ -1,0 +1,15 @@
+$appColor:#129BD8;
+$gapV: 10px;
+$gapH: 15px;
+@mixin absCenter($width, $height, $pos: absolute){
+    position: $pos;
+    left: 50%; top:50%;
+    width: $width; height: $height;
+    margin-left: -$width/2;
+    @if $height!=auto { margin-top: -$height/2; }
+}
+
+@mixin encoded-svg-background($svg) {
+    //$url: `encodeURIComponent(${svg})`;
+    background-image: url("data:image/svg+xml;charset=utf-8,#{$svg}");
+}

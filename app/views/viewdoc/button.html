@@ -1,0 +1,77 @@
+<div class="content">
+    <div class="content-padded">
+        <h4>看完此页会明白二点:<br/> 1.Button的声明|各种方式声明实例,<br/> 2 声明式定义组件的各种情况，</h4>
+
+        <h5>A:按钮声明的几种方式:(适用于其它组件,请查看此页源代码,非运行时代码)</h5>
+        <p class="table-view-divider">1.采用html声明方式(不带有组件声明方式的方法)</p>
+        <p class="">
+            <button class="btn">Button</button>
+            <button class="btn btn-primary">Button</button>
+            <button class="btn btn-positive">Button</button>
+            <button class="btn btn-negative">Button</button>
+            <button class="btn btn-link">Button</button>
+
+            <button class="btn btn-outlined">Button</button>
+            <button class="btn btn-primary btn-outlined">Button</button>
+            <button class="btn btn-positive btn-outlined">Button</button>
+            <button class="btn btn-negative btn-outlined">Button</button>
+        </p>
+        <p class="table-view-divider">2.或是组件式声明方式</p>
+        <p class="">
+            <div class="self-def-class" data-ui-widget="Button">Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"primary"}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"positive"}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"negative"}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"link"}'>Text</div>
+
+            <div data-ui-widget="Button" data-opts='{"outline": true}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"primary","outline": true}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"positive","outline": true}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"negative","outline": true}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"link","outline": true}'>Text</div>
+
+            <div data-ui-widget="Button" data-opts='{"badge": 1}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"primary","outline": true, "badge": 10}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"positive","outline": true, "icon": "icon-search"}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"negative", "badge": 10, "icon": "icon-search"}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"link","outline": true, "badge": 10, "icon": "icon-search"}'>Text</div>
+
+            <div data-ui-widget="Button" data-opts='{"isblock": true}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"badge": 1, "isblock": true}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"primary", "badge": 10, "isblock": true}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"positive", "icon": "icon-search", "isblock": true}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"negative", "badge": 10, "icon": "icon-search", "isblock": true}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"link", "badge": 10, "icon": "icon-search", "isblock": true}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"primary","outline": true, "badge": 10, "isblock": true}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"positive","outline": true, "icon": "icon-search", "isblock": true}'>Text</div>
+            <div data-ui-widget="Button" data-opts='{"type":"negative", "badge": 10, "icon": "icon-search", "isblock": true}'>Text</div>
+        </p>
+        <p class="table-view-divider">3.或是采用JS实例化组件</p>
+        <p class="">
+        new Button({data: opts, wrapper: '.class'});
+        </p>
+
+        <h5>B:详述关于声明式定义组件</h5>
+        <p> 数据声明的规则：
+        1.组件类型 定义在 data-ui-widget, <br/>
+        2.组件的wrapper即容器本身， <br/>
+        3.组件数据定义在data-opts上，<br/>
+
+        但下列数据可以例外的定义在如下描述的情景：<br/>
+        1. 非数组的title 来源于容器标签间text <br/>
+        2. 数组数据的是list数据， list.title来源于  <strong>item元素</strong>上的title属性
+        list.content来源于  <strong>item元素</strong> 间html <br/>
+            示例如下：
+<xmp>
+<div data-ui-widget="Slide" data-opts='{"type": "tab-top"}'>
+    <item title="ajax拦截器">
+        ajax拦截器 content here
+    </item>
+    <item title="Service对象">
+        Service对象 content here
+    </item>
+</div>
+</xmp>
+    </p>
+    </div>
+</div>

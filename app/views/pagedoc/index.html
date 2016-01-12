@@ -1,0 +1,72 @@
+<div class="content">
+    <div class="content-padded">
+        <h2>此页面的主题包含：</h2>
+            <p>页面相关</p>
+            <p>Ctrl相关</p>
+            <p>页面间传参</p>
+        <h3>A:页面相关: Gom APP里的新增一个页面为例：</h3>
+        <h5>1.在route.js里配置相关路由，一个页面对应路由的对象叫cro（current router object）对象， 最小化的cro如下。</h5>
+<pre class="prettyprint lang-js">
+'/list': {
+    tmplname: 'viewdoc/list',   //显示页面的模板
+    ctrl: viewdocList,          //显示页面的Action
+    title: '列表文档'
+}
+</pre><p>其中可以不指定tmplname与ctrl,但必须指定其一。因为显示一个页面可以由tmplname指向的文件或ctrl指向的ctrl文件单独或配合在一起去显示一个页面的逻辑，
+        最大化的cro对象可以包含所多属性，列举如下: </p>
+<xmp class="prettyprint lang-js">
+    tmpl : 'sample'    //optional(tmpl与ctrl必须指定一个) 页面调用的模块名称 template
+    ctrl : 'sample optional' 页面对应的ctrl的路径 ctrl
+    title: 'SAMPLE'    //optional 页面标题
+    data : {}          //optional 页面需要的数据（一般不会直接写入，由ajax动态写入）
+    params: {}         //页面间相互传递数据时设置此对象
+    wrapper: '#sample' //optional 页面需要插入的DOM位置
+    seo: {
+        title:  'as'       //上面title是显示在页面上的，这个设置是<title>标签里的值
+        keyword: 'as',
+        descption: 'as'
+    }
+</xmp>
+    <h5>2. tmplname指向的文件内容是html片断， 必须包含在 className为content(可在config.js里配置此className)的div里;</h5>
+    <h5>3. ctrl: 每路由到一个页面，会自动调用ctrl里的init(page)方法, 可以在ctrl指向的文件里定义此方法（也可以不定义，框架会自动调用render方法初始化页面）如下：</h5>
+    <pre class="prettyprint lang-js">
+init: function(page){
+    page.render();
+}
+    </pre>
+    <h5>4. init方法里有个参数为page对象，包含到这个页面的所有信息，即cro对象，包含的内容很强大。通过框架提供的方法操作此对象可以很自由地处理各种逻辑，page对象包含如下属性：</h5>
+    <pre class="prettyprint lang-js">
+ {
+    config: Object      //全局配置config.js export的对象
+    data: Object        //页面上数据对象
+    tmpl: ""            //页面dom string
+    events: Object      //页面对象上绑定的事件， gom在组件与页面上实现的事件绑定方式借用了 backbone events思想来实现的
+    hashs: Array        //路由到当前页面的路由数组
+    isback: false       //是否为后退
+    params: null        //到此页面传递的参数对象
+    replace: false      //在page实例里暂时无用， 继承自View对象,详见View对象
+    seo: Object         //当前页面的seo配置信息
+    title: "Slide示例"   //页面标题
+    tmplname: ""        //页面路径
+    widgets: Array[1]   //页面上所有经过声明式的组件对象数组， 函数式的在ctrl里可以直接引用
+    wrapper: Z[1]       //路由到页面需要将页面插入的地方
+}
+    </pre>
+    <p>page对象上的方法参见文档：http:</p>
+    <h4>B:Ctrl相关: ctrl代码结构一般如下：</h4>
+    <pre class="prettyprint lang-js">
+define(['dep'], function(dep) {
+    return {
+        //init方法会被框架自动调用，没有定义框架也会处理page.render;
+        init: function(page){
+            page.render();
+            this.doSth();
+        },
+        doSth: function(){},
+        events:{}
+    }
+});
+    </pre>
+        <h4>C:页面间参数传递</h4>
+    </div>
+</div>

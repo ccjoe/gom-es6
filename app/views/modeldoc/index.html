@@ -1,0 +1,30 @@
+
+<div class="content">
+    <div class="content-padded">
+
+        <div class="slide-tab" data-ui-widget="Slide" data-opts='{"type": "tab-top"}'>
+            <item title="ajax拦截器">
+            <p>ajax拦截器的意义在于在所有请求的入口（request）与出口(response)处对数据统一处理与拦截，对于服务端有良好结构的消息体便于统一处理。</p>
+            <p>如下为使用示例，全站仅最好只处理一次</p>
+<xmp>
+//Service ajax拦截器操作
+new Service({
+    req:function(e, xhr, options){
+      //这里会对所有请求 request 进行处理，
+      //return false时阻止某请求
+    },
+    res: function(e, xhr, options){
+    //这里会对所有请求 response 进行处理
+    }
+});
+</xmp>
+
+            </item>
+            <item title="Service对象">
+                <p> Service对象的属性有：url <br/>
+                Service对象的方法：fetch() save()
+                </p>
+            </item>
+        </div>
+    </div>
+</div>
