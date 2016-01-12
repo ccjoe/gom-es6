@@ -1,5 +1,5 @@
 import List from '../ui/ui.list';
-import * as Modal from '../ui/ui.modal';
+import {Modals} from '../ui/ui.modal';
 import Scroll from '../ui/ui.scroll';
 import View from '../core/view';
 /**
@@ -45,13 +45,12 @@ class Select extends View {
         data.modal = (data.modal === void 0) ? true : data.modal;
         data.className = data.className || '';
         super(opts);
-        $.extend(this, opts);
         this.tmpl = this.makeScrollCtn();
     }
     show (){
-        var that = this; data = this.data;
+        let that = this, {data} = this;
         if(data.modal){
-            Modal.bottom({
+            Modals.bottom({
                 title: data.title,
                 content: this.makeScrollCtn(),
                 onYes: function (){
@@ -121,12 +120,13 @@ class Select extends View {
     /**
      * 更新 select项数据
      * @method Gom.UI.Select#update
-     * @param {number} index 需要更新的level为index
-     * @param {object} data  更新到的数据
+     * @param {number} level 需要更新的level为index
+     * @param {Object} data  更新到的数据
      */
     update (level, data){
         this.setListCont(level, data);
     }
+
     setScroll (){
         var that = this, indexScroll=[];
         for(var l=1; l<=this.data.level; l++){
@@ -153,7 +153,7 @@ class Select extends View {
     /**
      * 获取选择后的值;
      * @method Gom.UI.Select#getSelect
-     * @return 选择后的值
+     * @return {Array} 选择后的值
      */
     getSelect (){
         var $domRoot = this.getScrollRoot(), val, valArr = [];

@@ -45,12 +45,10 @@ class Header extends View {
         opts.data = _.extend({}, defaults, opts.data);
         opts.tmplname = 'ui.header';
         opts.wrapper = opts.wrapper || '#header';
-        super(opts);
-        $.extend(opts, this);   //将List实例混合到opts上， 去父对象上执行
-        this.title = opts.title;
-        this.events = {
+        opts.events = {
             'click .icon-left-nav': 'goBack'
         };
+        super(opts);
     }
     /**
      * @method Gom.UI.Header#setTitle

@@ -1,7 +1,7 @@
 'use strict';
 
 import {UI} from '../../gom/src/gom';
-let {Forms, District} = UI;
+let {Toggle, InputLocation} = UI;
 export default {
     init (page){
         page.render();
@@ -9,7 +9,7 @@ export default {
         this.createInputLocation();
     },
     createToggles (){
-        new Forms.Toggle({
+        new Toggle({
             wrapper: '.toggle-wrapper',
             data: {
                 name: "xqx",
@@ -18,7 +18,7 @@ export default {
         }).render();
     },
     createInputLocation (){
-        new Forms.InputLocation({
+        new InputLocation({
             wrapper: '.input-location',
             data:{
                 name:　'position'

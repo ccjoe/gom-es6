@@ -40,6 +40,8 @@ gulp.task('gom-lib', function () {
 var browserify = require('browserify');
 var babelify = require('babelify');
 var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+
 gulp.task('es6', function () {
     browserify({
         entries:['./app/scripts/app.js'],   //'./app/gom/src/gom.js',
@@ -48,7 +50,9 @@ gulp.task('es6', function () {
     .transform(babelify)
     .bundle()
     .pipe(source('app.js'))
+    .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
     .pipe(gulp.dest('./.tmp/scripts'))
+    .pipe(uglify())
     .pipe(gulp.dest('./dist/scripts'));
 });
 /*----------------------GOM Frame Build END-------------------------*/
@@ -64,7 +68,7 @@ gulp.task('app-styles', function () {
 /*--------------------- HTML ----------------*/
 gulp.task('html', function () {
     var assets = $.useref.assets({searchPath: ['.tmp']});
-    return gulp.src('app/*.html')
+    return gulp.src('app/**/*.html')
         .pipe(assets)
         .pipe($.if('*.js', $.uglify()))
         .pipe($.if('*.css', $.csso()))

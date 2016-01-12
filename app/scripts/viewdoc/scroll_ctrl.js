@@ -1,6 +1,6 @@
 'use strict';
 import {UI} from '../../gom/src/gom';
-    var Modal = UI.Modal;
+    var Modals = UI.Modals;
     var List = UI.List;
     var Scroll = UI.Scroll;
     var Select = UI.Select;
@@ -108,7 +108,7 @@ import {UI} from '../../gom/src/gom';
             });
         },
         showModalScroll: function(){
-            Modal.center(
+            Modals.center(
                 '<div class="scroll-mdoal-example">\
                     <div class="scroll-mdaol-content">\
                         我的内容能滚动吗？我的内容能滚动吗？我的内容能滚动吗？我的内容能滚动吗？我的内容能滚动吗？我的内容能滚动吗？\
@@ -146,7 +146,7 @@ import {UI} from '../../gom/src/gom';
                 level: 3,
                 list: {'1':['上午','下午'],'2': num.concat(_.range(10,13)), '3': num.concat(_.range(10,61))},
                 onYes: function(val){
-                    Modal.toast('选择的值为：' + val);
+                    Modals.toast('选择的值为：' + val);
                 }
             }}).render();
         }

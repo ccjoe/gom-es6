@@ -4,7 +4,7 @@
  **/
 
 var isdebug = !!~location.search.indexOf('debug=1');
-var config = {
+const config = {
     //hostPath: '',       //相对域名根目录的路径，例如布署在a.com/b/c/下, hostPath即/b/c/(沿没实现,需验证)
     VERSION: 'release', //发布时的版本号
     DEBUG: isdebug,

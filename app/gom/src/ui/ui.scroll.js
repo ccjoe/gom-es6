@@ -7,6 +7,12 @@ var vendor = (/webkit/i).test(navigator.appVersion) ? 'webkit' :
     (/firefox/i).test(navigator.userAgent) ? 'Moz' :
         'opera' in window ? 'O' : '';
 var has3d = 'WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix();
+var getFreshStr = function(moveStr, freshStr){
+    return `<div class="pull-to-refresh-layer">
+    <div class="pull-show-item"><span class="preloader-text">${moveStr}</span><span class="preloader"></span></div>
+    <div class="pull-show-item"><span class="pull-to-refresh-text">${freshStr}</span><span class="pull-to-refresh-arrow"></span></div>
+    </div>`;
+};
 /**
  * @class Gom.UI.Scroll
  * @alias Scroll
@@ -43,14 +49,6 @@ var has3d = 'WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix();
          onEnd:  function(){ console.log('滚动到最下面，滚动停止时触发')}   // 滚动到下时
     });
  */
-
-var getFreshStr = function(moveStr, freshStr){
-    return '<div class="pull-to-refresh-layer">' +
-    '<div class="pull-show-item"><span class="preloader-text">'+moveStr+'</span><span class="preloader"></span></div>' +
-    '<div class="pull-show-item"><span class="pull-to-refresh-text">'+freshStr+'</span><span class="pull-to-refresh-arrow"></span></div>' +
-    '</div>';
-};
-
 class Scroll {
     constructor  (opts) {
         opts.direction = opts.direction || 'vertical';
@@ -60,14 +58,14 @@ class Scroll {
         var defalutsThis = {
             $wrapper : $el,
             $scroll  : $el.find(opts.className),
-            step    : opts.step || 0,
-            speed   : opts.speed || 1,
-            outer   : opts.outer===void 0 ? 100 : opts.outer,
-            isX     : opts.direction !== 'vertical',
-            onScroll  : opts.onScroll || function(){},
-            endScroll : opts.endScroll || function(){},
-            onFront : opts.onFront || function(){},
-            onEnd : opts.onEnd || function(){}
+            step     : opts.step || 0,
+            speed    : opts.speed || 1,
+            outer    : opts.outer===void 0 ? 100 : opts.outer,
+            isX      : opts.direction !== 'vertical',
+            onScroll : opts.onScroll || function(){},
+            endScroll: opts.endScroll || function(){},
+            onFront  : opts.onFront || function(){},
+            onEnd    : opts.onEnd || function(){}
         };
 
         if(!defalutsThis.isX && Number(defalutsThis.outer)>0){
@@ -219,7 +217,6 @@ class Scroll {
             singleSwipeDis = distance,
             swipeOffset = this.$scroll.data('swipe-offset') || 0;
             distance += swipeOffset;
-
 
         if(0>distance && distance>=-maxTransDis){
             distance = moving ? distance : singleSwipeDis*this._getRatio(swipeTime)+swipeOffset;

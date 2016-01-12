@@ -38,7 +38,7 @@ export const list = `
             {{ } }}
             <div class="media-body">
                 {{=item.title}}
-                <p>{{=item.content}}</p>
+                <p>{{=item.content ? item.content : ''}}</p>
             </div>
         </a>
     </li>
@@ -75,18 +75,18 @@ export const modal = `
 </div>
 {{ }else{ }}
 <div class="modal-toast modal-{{=data.type}}" >
-    {{var type = data.type.match(/toast-(\w+)/)[1] }}
+    {{console.log(data, 'data.type');}}
+    {{ let type = /toast-(\\w+)/.exec(data.type)[1] }}
     <span class="icon icon-{{= type==='info' ? 'info' : (type==='error'?'close': 'check')  }}">{{=data.content}}</span>
 </div>
-{{ } }}
-`;
+{{ } }}`;
 
 export const sides = `
 <div class="sides-overlay"></div>
 <div class="sides sides-{{= data.position }}"></div>
 `;
 
-export const switcher = `{{ var switchType = /(^\w+)-?(\w+)?/.exec(data.type), isSlide = switchType[1]==='slide', position = switchType[2];}}
+export const switcher = `{{ var switchType = /(^\\w+)-?(\\w+)?/.exec(data.type), isSlide = switchType[1]==='slide', position = switchType[2];}}
 <div class="switch-container slide-container {{= isSlide ? 'slide-container-'+position : 'tab-container slide-container-horizontal'}}">
     {{ if(isSlide || (!isSlide && position==='top')){ }}
     <div class="switch-pagination {{= isSlide ? 'slide-pagination' : 'segmented-control'}}">

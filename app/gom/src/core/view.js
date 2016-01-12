@@ -13,12 +13,6 @@ var parseTmpl = tmplID => {
     return tmpl;
 };
 
-/*_.templateSettings = {
-    evaluate    : /\{\{(.+?)\}\}/g,
-    interpolate : /\{\{=(.+?)\}\}/g,
-    escape      : /\{\{\-(.+?)\}\}/g
-};*/
-
 function _compile(template){
     var evalExpr = /\{\{=(.+?)\}\}/g;
     var expr = /\{\{(.+?)\}\}/g;
@@ -96,6 +90,8 @@ var inheritAttrs = function (elem, toElem) {
      */
     render() {
         var wrap = this.wrapper;
+        if(!this.tmpl && !this.tmplname) return this;
+
         var frag = this.getHTMLFragment(), $frag;
         if (wrap) {
             if (this.replace) {
@@ -148,9 +144,8 @@ var inheritAttrs = function (elem, toElem) {
      * @param {string} [viewOrPartial=partial] -其值为 'partial' or 'view'
      * @return {tmpl}
      */
-    getHTMLFragment (viewOrPartial) {
+    getHTMLFragment (viewOrPartial='partial') {
         this.getHTMLTmpl(viewOrPartial);
-        if (!this.tmpl) return;
         return this.data ? template(this.tmpl, this.data): template(this.tmpl);
     }
 
@@ -160,7 +155,7 @@ var inheritAttrs = function (elem, toElem) {
      * @param {string} [viewOrPartial=partial] -其值为 'partial' or 'view'
      * @returns {*|string|tmpl}
      */
-    getHTMLTmpl (viewOrPartial){
+    getHTMLTmpl (viewOrPartial='partial'){
         if (this.tmpl) {
             return this.tmpl;
         }
@@ -226,11 +221,10 @@ var inheritAttrs = function (elem, toElem) {
      * function有二个参数 (e, target),其this指向所在的环境即env
      **/
     _parseEvent (env, delegateElement) {
+
         var events = this.events;
         if (!events) return;
-
-        var onfn = function () {
-        }, $de = $(delegateElement);
+        var onfn = function () {}, $de = $(delegateElement);
         //绑定事件的方法,获取方法名称使用会导致this指向window
         if ($de.length) {
             $de.off();
@@ -241,9 +235,9 @@ var inheritAttrs = function (elem, toElem) {
         }
         //var that = this;
         for (var eve in events) {
-            (function (eve) {
-                var eventSrc = getEventSrc(eve),
-                    eventListener = events[eve];
+            (function (ev) {
+                var eventSrc = getEventSrc(ev),
+                    eventListener = events[ev];
                 //console.log($(delegateElement), that.wrapper,  eventSrc.event, eventSrc.selector, '绑定的事件');
                 onfn(eventSrc.event, eventSrc.selector, function (e) {
                     if (typeof eventListener === 'function') {

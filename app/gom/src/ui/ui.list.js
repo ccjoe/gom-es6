@@ -1,5 +1,5 @@
 import View from '../core/view';
-/*var defaults = {
+/*var defaultsList = {
     media: '', // 'icon'
     card: false, //false
     list: [{
@@ -71,11 +71,10 @@ ListSet.render();
 class List extends View {
     constructor (opts) {
         opts.tmplname = 'ui.list';
-        super(opts);
-        $.extend(opts, this);   //将List实例混合到opts上， 去父对象上执行
-        this.events = {
+        opts.events = {
             'click .table-view-divider.table-view-collapse': 'collapseListGroup'
-        }
+        };
+        super(opts);
     }
 
     collapseListGroup (e, current){

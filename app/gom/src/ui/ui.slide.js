@@ -54,14 +54,13 @@ var has3d = 'WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix();
 class Slide extends View {
     constructor  (opts) {
         opts.data = _.extend({}, defaults, opts.data);
-        opts.tmplname = 'ui.switch';
-        super(opts);
-        $.extend(opts, this);   //将List实例混合到opts上， 去父对象上执行
-        this.events={
-            'click .switch-pagination-bullet' (e, target, that){
+        opts.tmplname = 'ui.switcher';
+        opts.events = {
+            'click .switch-pagination-bullet': function (e, target, that){
                 that.rollback($(target).attr('index'));
             }
-        }
+        };
+        super(opts);
     }
     show (){
         this.swipeContainer(this.data.initIndex);
@@ -81,12 +80,11 @@ class Slide extends View {
     getPaginationDom (){
       return this.wrapper.find('.switch-pagination');
     }
-
     //滚动到或回滚到index
     rollback (index){
         var that = this,
             $switchs = this.getListDom(),
-            $switch = $switchs.find('.switch-item'),  //滑动子项
+            //$switch = $switchs.find('.switch-item'),  //滑动子项
             $index = this.getPaginationDom(),
             isX =  /(^\w+)-?(\w+)?/.exec(this.data.type)[2] !== 'vertical',       //水平垂直
             isize = isX ? $switchs.width() : $switchs.height(); //计算尺寸
@@ -116,7 +114,7 @@ class Slide extends View {
             $root = this.getRootDom(),
             $switchs = this.getListDom(),            //滑动容器
             $switch = $switchs.find('.switch-item'),  //滑动子项
-            len = $switch.length, that = this,//元素个数, 元素,  this
+            len = $switch.length, //元素个数, 元素,  this
             isloop = this.data.isloop,              //是否循环滚动
             isX =  /(^\w+)-?(\w+)?/.exec(this.data.type)[2] !== 'vertical',       //水平垂直
             swipeXY = isX ? 'swipeX' : 'swipeY',
@@ -154,7 +152,6 @@ class Slide extends View {
 
               }
               that.rollback(index);
-              return;
             }
         });
     }

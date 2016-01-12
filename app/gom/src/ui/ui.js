@@ -49,6 +49,5 @@ import Scroll from './ui.scroll';
 import Slide  from './ui.slide';
 import Select from './ui.select';
 import * as Forms from './ui.forms';
-export {Header, List, Modals, Sides, Scroll, Slide, Select};
-
-
+let {Button, CheckBox, Form, InputLocation, Radio, Toggle} = Forms;
+export {Header, List, Modals, Sides, Scroll, Slide, Select, Button, CheckBox, Form, InputLocation, Radio, Toggle};

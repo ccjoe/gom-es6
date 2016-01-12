@@ -22,11 +22,10 @@ class Sides extends View {
         opts.data = _.extend({}, defaultBtn, opts.data);
         opts.tmplname = 'ui.sides';
         opts.wrapper = opts.wrapper || '#sides';
-        super(opts);
-        $.extend(opts, this);   //将List实例混合到opts上， 去父对象上执行
-        this.events = {
+        opts.events = {
             'click .sides-overlay': 'hide'
-        }
+        };
+        super(opts);
     }
 
     /**

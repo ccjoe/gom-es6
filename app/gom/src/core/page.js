@@ -94,8 +94,6 @@ class Page extends View{
      */
     show(){
         var isback = this.isback;
-        //var effect = (isback === null) ? null : (!isback ? 'swipe-left':'swipe-right');
-
         this.push(this.getHTMLFragment('view'), isback);
         //this._parseEvent();
         if (this.title || this.subtitle) {
@@ -107,7 +105,7 @@ class Page extends View{
      * 页面转场 会保留最近的三个层次页面
      * @method Gom.Page#push
      * @param {element} dom    - 推入的htmlFragment
-     * @param {string} goback 前进与后退
+     * @param {string} isback 前进与后退
      **/
     push(dom, isback){
         var $dc = $(this.wrapper ? this.wrapper : '#viewport');
@@ -141,7 +139,6 @@ class Page extends View{
                     isback ? $last.remove() : null;
                 });
         }
-        return;
     }
     //渲染页面后自动实例化组件，去支持声明式初始UI组件, 组件式的内容作为title, data-opts作为参数对象, 若有重复，以data-opts为主
     //声明式初始UI组件初始隐藏，解析后显示.
@@ -190,7 +187,6 @@ class Page extends View{
     /**
      * 设置某页面的SEO信息
      * @method Gom.Page#setSeo
-     * @todo 暂时不实现
      */
     setSeo (seoInfo){
 

@@ -18,7 +18,6 @@ const noop = function(){};
  * 弹层底层抽象类，如果需要自定义弹出层才需要用到, 自定义一般于Modal.layout，不满足才需要用到此类
  * 弹层层的家庭比较大，有Loading，confirm， alert, center, popover, tips, popup, top , bottom, toast
  * 所有弹出层不可共存，但modal与toast可一起显示.
- *  @todo 模态类型分拆及共存问题？
  *  @class Gom.UI.Modal
  *  @alias Modal
  *  @extends {Gom.View}
@@ -48,13 +47,12 @@ const noop = function(){};
  */
 class Modal extends View {
     constructor  (opts) {
-        opts.data = $.extend({}, data, opts.data);
+        var data = opts.data = $.extend({}, data, opts.data);
         opts.tmplname = 'ui.modal';
         super(opts);
-        $.extend(opts, this);   //将List实例混合到opts上， 去父对象上执行(_super())
-        this.onYes = opts.data.onYes || noop;
-        this.onNo = opts.data.onNo || noop;
-        this.mask = opts.data.mask;
+        this.onYes = data.onYes || noop;
+        this.onNo = data.onNo || noop;
+        this.mask = data.mask;
     }
     render (){
         let [wrap, frag] = [$('body'), this.getHTMLFragment()];
@@ -133,13 +131,13 @@ class Modal extends View {
      * @method Gom.UI.Modal#getMask
      * @returns {*|jQuery|HTMLElement}
      */
-    getMask (){
+    static getMask (){
         return $('.modal-overlay');
     }
     /**
      * 判断显示与隐藏及相应动画
      * @method Gom.UI.Modal#toggleModal
-     * @param {string} [inOrOut=In] in|显+out|隐
+     * @param {string} [inout=In] in|显+out|隐
      * @desc 上下弹出层会采用slide+fade动画，其它采用scale+fade
      */
     toggleModal (inout){
@@ -215,7 +213,7 @@ let Modals = {
     /**
      * 此方法一般用于自定义弹出层组件, 抽象类Modal的抽象实例
      * @method Gom.UI.Modal.layout
-     * @param {object} static 默认参数
+     * @param {object} statics 默认参数
      * @param {object|string} opts 传入的opts参数为object时，会覆盖static默认参数, opts参数:@see Gom.UI.Modal#opts
      *                              传入的opts参数为string时，则表示为opts.content
      * @param {string} type 弹出层对象的名称
@@ -351,7 +349,6 @@ let Modals = {
      * @method Gom.UI.Modal.popover
      * @param {object|string} opts 传入的opts参数为object时，会覆盖static默认参数, opts参数:@see Gom.UI.Modal#opts 传入的opts参数为string时，则表示为opts.content
      * @param {object|string} opts.bindElem 弹出层绑定的元素（位置）
-     * @return {Modal} 弹出层实例
      */
     popover (opts){
         const popoverStatic = {
@@ -399,7 +396,7 @@ let Modals = {
      */
     tips (opts){
         $.extend(opts, {'class': 'modal-tips', mask: false});
-        ModalExtend.popover(opts);
+        this.popover(opts);
     },
     /**
      * 显示不同类型的弹出提示
@@ -408,6 +405,7 @@ let Modals = {
      * @return {Modal} 弹出层实例
      */
     toast (content, toastType){
+        console.log(content, '--------' , toastType, 'test');
         toastType = toastType || 'info';
         return new Modal({
             data:{
