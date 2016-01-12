@@ -46,7 +46,7 @@ var ListSet = new UI.List({
     //wrapper: '#indexList'     //有wrapper时直接渲染，否则返回fragmentHTML
 }).render();
 
-export var main =  {
+var main =  {
     init: function(page) {
         page.data = data;  //页面的tmpl与data生成的页面
         page.render();    //this.sides页面渲染后回调生成ui组件组成的页面
@@ -103,3 +103,4 @@ export var main =  {
     }
 };
 
+export default main;

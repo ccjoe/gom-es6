@@ -10,7 +10,6 @@ var parseTmpl = tmplID => {
     }else{
         tmpl = UItmpl;
     }
-    console.log(tmplID, tmpl, '$tmpl');
     return tmpl;
 };
 
@@ -20,9 +19,33 @@ var parseTmpl = tmplID => {
     escape      : /\{\{\-(.+?)\}\}/g
 };*/
 
-var compile = function (tmpl, tmpldata){
-    const data = tmpldata;
-    return tmpl;
+function _compile(template){
+    var evalExpr = /\{\{=(.+?)\}\}/g;
+    var expr = /\{\{(.+?)\}\}/g;
+
+    template = template
+        .replace(evalExpr, '`); \n  echo( $1 ); \n  echo(`')
+        .replace(expr, '`); \n $1 \n  echo(`');
+    template = 'echo(`' + template + '`);';
+    var script = `(function parse(data){
+        var output = "";
+        function echo(html){
+          output += html;
+        }
+        ${ template }
+        return output;
+      })`;
+    return script;
+}
+
+var template = function(tmpl, data){
+    console.log(tmpl, data, 'tmpldata');
+    var parse = eval(_compile(tmpl));
+    if(!data){
+        return tmpl;
+    }else{
+        return parse(data);
+    }
 };
 
 //toElem继承elem所有属性但排除组件定义属性, class会叠加，其它会替换，组件定义的相关属性不会继承
@@ -129,7 +152,7 @@ var inheritAttrs = function (elem, toElem) {
     getHTMLFragment (viewOrPartial) {
         this.getHTMLTmpl(viewOrPartial);
         if (!this.tmpl) return;
-        return this.data ? compile(this.tmpl, this.data): compile(this.tmpl);
+        return this.data ? template(this.tmpl, this.data): template(this.tmpl);
     }
 
     /**
@@ -138,7 +161,7 @@ var inheritAttrs = function (elem, toElem) {
      * @param {string} [viewOrPartial=partial] -其值为 'partial' or 'view'
      * @returns {*|string|tmpl}
      */
-    getHTMLTmpl (viewOrPartial) {
+    getHTMLTmpl (viewOrPartial){
         if (this.tmpl) {
             return this.tmpl;
         }
@@ -185,8 +208,8 @@ var inheritAttrs = function (elem, toElem) {
      * 2.不在view组件的 wrapper里面，但想需要被 view组件的events对象解析绑定事件的html
      * 3.组件实例化后新增或删除事件（还没有通过此方法实现，待考证是否有必要）
      * @method Gom.View#refreshEvent
-     * @param {string} frag所在的选择器或元素
-     * @param {object} events对象所在的环境，即其父对象
+     * @param {string} frag 所在的选择器或元素
+     * @param {object} env 对象所在的环境，即其父对象
      */
     refreshEvent (frag, env) {
         this._parseEvent(env, frag);
