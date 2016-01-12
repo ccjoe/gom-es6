@@ -3,7 +3,6 @@ import Store from '../utils/store';
 import District from './business/ui.select-district';
 import View from '../core/view';
 
-
 var defaultsBtns = {
     type: 'primary',    //primary, positive, negative, link
     outline: false, //true/false
