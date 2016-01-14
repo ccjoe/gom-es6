@@ -1,6 +1,5 @@
 'use strict';
-import {UI} from '../../gom/src/gom';
-var List = UI.List;
+var {List} = Gom.UI;
 export default {
         init: function(page){
             page.render();

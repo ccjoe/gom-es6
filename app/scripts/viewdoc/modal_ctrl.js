@@ -1,7 +1,8 @@
-import {UI} from '../../gom/src/gom';
-        var Modals = UI.Modals;
-        var List = UI.List;
-    'use strict';
+//import {UI} from '../../gom/src/gom';
+'use strict';
+
+var UI = Gom.UI;
+var {Modals,List} = UI;
     export default {
         init: function(page){
             this.page = page;   //给其它方法公用到page对象

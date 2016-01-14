@@ -6,7 +6,7 @@ export const button = `<button class="btn btn-{{= data.type }} {{= data.outline 
     {{ } }}
 </button>`;
 
-export const header = `{{ _.each(['left', 'right'], function(posi){ }}
+export const header = `{{ ['left', 'right'].map(function(posi){ }}
 {{ let type= data[posi].type, text = data[posi].text, icon=data[posi].icon || 'icon-'+posi+'-nav'; }}
 {{ if(type === 'button'){ }}<button class="btn pull-{{=posi}}">{{= text?text:'' }}</button>{{ } }}
 {{ if(type === 'icon'){  }}<a class="icon {{= icon }} pull-{{=posi}}">{{= text?text:'' }}</a>{{ } }}
@@ -21,7 +21,7 @@ export const header = `{{ _.each(['left', 'right'], function(posi){ }}
 export const list = `
 {{= data.card ? '<div class="card">' : '' }}
 <ul class="table-view">
-    {{ _.each(data.list, function(item){ }}
+    {{ console.log(data, 'list'); data.list.map(function(item){ }}
 
     <li class="{{= item.isDivider?'table-view-divider':'table-view-cell' }}{{= item.collapse ? ' table-view-collapse' : '' }}">
         {{ if(item.isDivider){ }}{{=item.title}}{{ return; } }}
@@ -75,7 +75,6 @@ export const modal = `
 </div>
 {{ }else{ }}
 <div class="modal-toast modal-{{=data.type}}" >
-    {{console.log(data, 'data.type');}}
     {{ let type = /toast-(\\w+)/.exec(data.type)[1] }}
     <span class="icon icon-{{= type==='info' ? 'info' : (type==='error'?'close': 'check')  }}">{{=data.content}}</span>
 </div>
@@ -90,7 +89,7 @@ export const switcher = `{{ var switchType = /(^\\w+)-?(\\w+)?/.exec(data.type),
 <div class="switch-container slide-container {{= isSlide ? 'slide-container-'+position : 'tab-container slide-container-horizontal'}}">
     {{ if(isSlide || (!isSlide && position==='top')){ }}
     <div class="switch-pagination {{= isSlide ? 'slide-pagination' : 'segmented-control'}}">
-        {{ _.each(data.list, function(item, i){ }}
+        {{ data.list.map(function(item, i){ }}
             <span  index="{{=i}}" class="switch-pagination-bullet {{= isSlide ? 'slide-pagination-bullet' : 'control-item'}} {{= i===0 ? 'active' : '' }}">{{=item.title}}</span>
         {{ }); }}
     </div>
@@ -98,13 +97,13 @@ export const switcher = `{{ var switchType = /(^\\w+)-?(\\w+)?/.exec(data.type),
     <div class="switch-wrapper slide-wrapper" index="0">
         <!--<div class="slide-slide slide-slide-active"></div>
         <div class="slide-slide slide-slide-next"></div>-->
-        {{_.each(data.list, function(item, i){ }}
+        {{data.list.map(function(item, i){ }}
             <div class="switch-item control-content">{{=item.content}}</div>
         {{ }); }}
     </div>
     {{ if(!isSlide && position==='bottom'){ }}
     <nav class="bar bar-tab switch-pagination">
-        {{ _.each(data.list, function(item, i){ }}
+        {{ data.list.map(function(item, i){ }}
         <a class="tab-item switch-pagination-bullet {{= i===0 ? 'active' : '' }}" href="#" index="{{=i}}">
             {{ if(item.icon){ }}<span class="icon {{=item.icon}}"></span> {{ } }}
             <span class="tab-label">{{=item.title}}</span>

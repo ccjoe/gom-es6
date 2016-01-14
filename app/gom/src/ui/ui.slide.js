@@ -53,7 +53,7 @@ var has3d = 'WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix();
  */
 class Slide extends View {
     constructor  (opts) {
-        opts.data = _.extend({}, defaults, opts.data);
+        opts.data = Object.assign({}, defaults, opts.data);
         opts.tmplname = 'ui.switcher';
         opts.events = {
             'click .switch-pagination-bullet': function (e, target, that){
@@ -162,7 +162,7 @@ class Slide extends View {
             indexStore =  Store.get(indexSrc);
 
         var getContent = function(tmpl){
-            return !indexData.data ? tmpl : _.template(tmpl)(indexData.data);
+            return !indexData.data ? tmpl : View.template(tmpl, indexData.data);
         };
         if(indexSrc){
             if(indexStore){

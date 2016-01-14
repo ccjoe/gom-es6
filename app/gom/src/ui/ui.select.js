@@ -41,7 +41,7 @@ var defaults = {
 };
 class Select extends View {
     constructor (opts){
-        var data = opts.data = _.extend({}, defaults, opts.data);
+        var data = opts.data = Object.assign({}, defaults, opts.data);
         data.modal = (data.modal === void 0) ? true : data.modal;
         data.className = data.className || '';
         super(opts);
@@ -143,7 +143,7 @@ class Select extends View {
                         var step = this.getSteps();
                         this.$scroll.find('li.table-view-cell').removeClass('active').eq(step).addClass('active');
                         var onSelect = that.data.onSelect;
-                        onSelect = onSelect ? _.bind(that.data.onSelect, that) : function(){};
+                        onSelect = onSelect ? that.data.onSelect.bind(that) : function(){};
                         onSelect(index, step, indexScroll);
                     }
                 });

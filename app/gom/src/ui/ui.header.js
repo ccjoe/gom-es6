@@ -42,7 +42,7 @@ var defaults = {
  */
 class Header extends View {
     constructor (opts){
-        opts.data = _.extend({}, defaults, opts.data);
+        opts.data = Object.assign({}, defaults, opts.data);
         opts.tmplname = 'ui.header';
         opts.wrapper = opts.wrapper || '#header';
         opts.events = {

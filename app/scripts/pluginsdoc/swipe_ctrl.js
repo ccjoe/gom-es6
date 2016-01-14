@@ -1,5 +1,6 @@
     'use strict';
-    import {Service} from '../../gom/src/gom';
+    //import {Service} from '../../gom/src/gom';
+    var Service = Gom.Service;
     //Service ajax拦截器操作
     new Service({
         req:function(e, xhr, options){

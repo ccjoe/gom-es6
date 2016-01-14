@@ -1,6 +1,6 @@
-import {UI} from '../../gom/src/gom';
+//import {UI} from '../../gom/src/gom';
 'use strict';
-//console.log(UI, 'UI');
+var UI = Gom.UI;
 var data = '上面的列表是组件渲染方式，这里的文本数据是页面渲染的部分, GoM分页面渲染和ui组件渲染，其都继承于View对象,都有data属性，通过定义组织data，然后调用render方法可以实现不同的渲染方式';
 
 var viewList = {

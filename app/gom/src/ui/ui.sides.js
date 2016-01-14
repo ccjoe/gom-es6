@@ -19,7 +19,7 @@ var defaultBtn = {
  */
 class Sides extends View {
     constructor  (opts) {
-        opts.data = _.extend({}, defaultBtn, opts.data);
+        opts.data = Object.assign({}, defaultBtn, opts.data);
         opts.tmplname = 'ui.sides';
         opts.wrapper = opts.wrapper || '#sides';
         opts.events = {

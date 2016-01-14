@@ -1,5 +1,7 @@
-import {UI} from '../../gom/src/gom';
+//import {UI} from '../../gom/src/gom';
 'use strict';
+
+var UI = Gom.UI;
 var page = {};
 export default {
     //会被框架自动调用

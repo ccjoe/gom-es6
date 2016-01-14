@@ -32,14 +32,7 @@ function _compile(template){
     return script;
 }
 
-var template = function(tmpl, data){
-    var parse = eval(_compile(tmpl));
-    if(!data){
-        return tmpl;
-    }else{
-        return parse(data);
-    }
-};
+
 
 //toElem继承elem所有属性但排除组件定义属性, class会叠加，其它会替换，组件定义的相关属性不会继承
 var inheritAttrs = function (elem, toElem) {
@@ -82,7 +75,20 @@ var inheritAttrs = function (elem, toElem) {
         Object.assign(this, {wrapper, tmplname, tmpl, data, replace, events, ctrl});
         this._parseEvent(ctrl || this);
     }
-
+    /**
+     * 渲染页面或组件或其它视图,一般组件需要手动调用此方式显示组件
+     * @method Gom.View.template
+     * @param {string} tmpl -es6 template
+     * @param {object} data  -传入数据对象
+     */
+    static template (tmpl, data){
+        var parse = eval(_compile(tmpl));
+        if(!data){
+            return tmpl;
+        }else{
+            return parse(data);
+        }
+    }
     /**
      * 渲染页面或组件或其它视图,一般组件需要手动调用此方式显示组件
      * @method Gom.View#render
@@ -90,7 +96,10 @@ var inheritAttrs = function (elem, toElem) {
      */
     render() {
         var wrap = this.wrapper;
-        if(!this.tmpl && !this.tmplname) return this;
+        if(!this.tmpl && !this.tmplname){
+            this.show();
+            return this;
+        }
 
         var frag = this.getHTMLFragment(), $frag;
         if (wrap) {
@@ -146,7 +155,7 @@ var inheritAttrs = function (elem, toElem) {
      */
     getHTMLFragment (viewOrPartial='partial') {
         this.getHTMLTmpl(viewOrPartial);
-        return this.data ? template(this.tmpl, this.data): template(this.tmpl);
+        return this.data ? View.template(this.tmpl, this.data): View.template(this.tmpl);
     }
 
     /**
@@ -228,9 +237,11 @@ var inheritAttrs = function (elem, toElem) {
         //绑定事件的方法,获取方法名称使用会导致this指向window
         if ($de.length) {
             $de.off();
-            onfn = _.bind($de.on, $de);    //修复使this指向zepto on里的this指向的对象
+            //onfn = _.bind($de.on, $de);    //修复使this指向zepto on里的this指向的对象
+            onfn = $de.on.bind($de);
         } else if (this.wrapper.length) {
-            onfn = _.bind(this.onview, this); //修复使this指向onview里的this指向的对象
+            //onfn = _.bind(this.onview, this); //修复使this指向onview里的this指向的对象
+            onfn = this.onview.bind(this);
             this.offview();
         }
         //var that = this;

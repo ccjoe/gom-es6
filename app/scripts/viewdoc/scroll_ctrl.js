@@ -1,10 +1,8 @@
+//import {UI} from '../../gom/src/gom';
 'use strict';
-import {UI} from '../../gom/src/gom';
-    var Modals = UI.Modals;
-    var List = UI.List;
-    var Scroll = UI.Scroll;
-    var Select = UI.Select;
-    export default {
+var {Modals,List,Scroll,Select} = Gom.UI;
+
+export default {
     init: function(page){
             page.render();
             var hashs = page.hashs;

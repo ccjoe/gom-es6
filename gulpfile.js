@@ -28,13 +28,13 @@ gulp.task('gom-scss', function () {
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 
-gulp.task('gom-lib', function () {
+/*gulp.task('gom-lib', function () {
     return gulp.src([GOM_PATH + 'src/3rd/zepto.js', GOM_PATH + 'src/3rd/!(zepto.js)*.js'])
         .pipe(uglify())
         .pipe(concat('base.js'))
         .pipe(gulp.dest('./.tmp/scripts/'))
         .pipe(gulp.dest('./dist/scripts/'));
-});
+});*/
 
 /*------------- RequireJs  ES6 see next p------------*/
 var browserify = require('browserify');
@@ -42,18 +42,34 @@ var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 
-gulp.task('es6', function () {
+function browserifyFile(opts){
     browserify({
-        entries:['./app/scripts/app.js'],   //'./app/gom/src/gom.js',
+        entries:[opts.entries],   //'./app/gom/src/gom.js',
+        standalone: opts.standalone?opts.standalone:false,
         debug:true
     })
+    .external(opts.external?opts.external:'')
     .transform(babelify)
     .bundle()
-    .pipe(source('app.js'))
+    .pipe(source(opts.filename))
     .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
     .pipe(gulp.dest('./.tmp/scripts'))
     .pipe(uglify())
     .pipe(gulp.dest('./dist/scripts'));
+}
+
+gulp.task('es6', function () {
+    browserifyFile({
+        entries: './app/gom/src/gom.js',
+        filename: 'gom.js',
+        standalone: 'Gom'
+    });
+
+    browserifyFile({
+        entries: './app/scripts/app.js',
+        filename: 'app.js',
+        //external: './app/gom/src/gom.js'
+    });
 });
 /*----------------------GOM Frame Build END-------------------------*/
 
@@ -79,7 +95,7 @@ gulp.task('html', function () {
 });
 
 gulp.task('scripts', function () {
-    gulp.start('gom-lib');
+    //gulp.start('gom-lib');
     gulp.start('es6');
 });
 
@@ -123,13 +139,13 @@ gulp.task('gom-docs', function(){
     docs_exec('jsdoc -t ../minami -c "./docs-conf.json" -r ./app/gom/src/ --readme ./app/gom/readme.md -d ./app/gom/docs')
 });
 
-gulp.task('gom', ['gom-lib'], function(){
+gulp.task('gom',  function(){
     gulp.start('gom-docs');
 });
 
 /*--------------------- SERVER ----------------*/
 gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
-gulp.task('serve', ['styles', 'scripts', 'fonts'], function () {
+gulp.task('serve', ['fonts', 'styles', 'scripts'], function () {
     browserSync({
         //notify: false,
         port: 9000,

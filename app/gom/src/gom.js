@@ -1,7 +1,3 @@
-$(function() {
-    FastClick.attach(document.body);
-});
-
 /**
  * Gom对象
  * @class Gom
@@ -25,6 +21,11 @@ $(function() {
  * 1.通过注入Gom模块,然后通过对象层级引用如Gom.ModuleName 或 Gom.UI.ComponentsName
  * 2.直接引入ComponentName(如Button)
  */
+import FastClick from './3rd/fastclick';
+FastClick(document.body);
+import './3rd/zepto';
+import './3rd/zepto.history';
+
 import Service from './core/service';
 import Page from './core/page';
 import * as UI from './ui/ui';
@@ -32,3 +33,4 @@ import View from './core/view';
 import App from './core/app';
 import Utils from './utils/utils';
 export {Service, Page, View, UI, Utils, App};
+

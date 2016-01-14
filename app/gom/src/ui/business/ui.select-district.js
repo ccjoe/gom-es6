@@ -1,5 +1,5 @@
 import View from '../../core/view';
-import * as Modal from '../ui.modal';
+import {Modals} from '../ui.modal';
 import Select from '../ui.select';
 
 let District = function (){
@@ -7,9 +7,9 @@ let District = function (){
     $.ajax({url: 'gom/src/data/district.json',
         global:false,
         success:function(data){
-        provinces = _.pluck(data, 'name');
-        citys = _.pluck(data[0].citys, 'name');
-        districts =  _.pluck(data[0].citys[0].districts, 'name');
+        provinces = data.map(value => value['name']);
+        citys = data[0].citys.map(value => value['name']);
+        districts =  data[0].citys[0].districts.map(value => value['name']);
         new Select({data: {
             title: '请选择区域',
             cascade: false,
@@ -18,14 +18,14 @@ let District = function (){
             onSelect: function(index, step, scrolls){
                 var that = this;
                 if(index === 1){
-                    citys = _.pluck(data[step].citys, 'name');
-                    districts = _.pluck(data[step].citys[0].districts, 'name');
+                    citys = data[step].citys.map(value => value['name']);
+                    districts = data[step].citys[0].districts.map(value => value['name']);
                     initOn(2, citys);
                     initOn(3, districts);
                 }
                 if(index === 2){
                     var selectCityStep = $('.modal-layout').find('.ss-cell-1').data('swipe-steps') || 0;
-                    districts =  _.pluck(data[selectCityStep].citys[step].districts, 'name');
+                    districts =  data[selectCityStep].citys[step].districts.map(value => value['name']);
                     initOn(3, districts);
                 }
                 function initOn(ind, data){
@@ -35,7 +35,7 @@ let District = function (){
                 }
             },
             onYes: function(val){
-                Modal.toast('选择的值为：' + val);
+                Modals.toast('选择的值为：' + val);
             }
         }}).render();
     }});

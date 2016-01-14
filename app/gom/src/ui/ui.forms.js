@@ -29,7 +29,7 @@ var defaultsBtns = {
  */
 class Button extends View {
     constructor(opts) {
-        opts.data = _.extend({}, defaultsBtns, opts.data);
+        opts.data = Object.assign({}, defaultsBtns, opts.data);
         opts.tmplname = 'ui.button';
         opts.replace = true;
         super(opts);
@@ -197,8 +197,7 @@ class Radio extends View {
      * @method Gom.UI.Radio#fresh
      */
     fresh() {
-        var that = this;
-        val = this.getInput().val();
+        let that = this, val = this.getInput().val();
         this.getItems().each(function (i, item) {
             if ($(item).data('keyval') == val) {
                 that.selectItem(item);
@@ -259,7 +258,7 @@ class InputLocation extends View {
         return this.wrapper.find('input');
     }
 
-    static selectLocation() {
+    selectLocation() {
         District();
     }
 
@@ -272,7 +271,7 @@ class InputLocation extends View {
             return;
         }
         geo.getCurrentPosition(function (position) {
-            that.location(position.coords, config.mapkey || '0b895f63ca21c9e82eb158f46fe7f502', function (addr) {
+            InputLocation.location(position.coords, config.mapkey || '0b895f63ca21c9e82eb158f46fe7f502', function (addr) {
                 that.getInput().val(addr.province + addr.city + addr.district);
                 that.onLocation ? that.onLocation(addr) : null;
             });
@@ -338,7 +337,7 @@ class Form extends View {
         var $el = this.wrapper, thisId = $el[0].id;
         var hash = Url.getHTML5Hash(location.search) || '/';
         if (!thisId) {
-            console.warn('需要存储localStorage须为Form指定ID, Debug模式将不会存储！');
+            console.warn('Form ID is required');
             return;
         }
         var expires = config.EXPIRES ? config.EXPIRES : 24 * 3600 * 1000;

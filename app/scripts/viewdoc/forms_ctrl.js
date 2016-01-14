@@ -1,6 +1,7 @@
+//import {UI} from '../../gom/src/gom';
 'use strict';
 
-import {UI} from '../../gom/src/gom';
+var UI = Gom.UI;
 let {Toggle, InputLocation} = UI;
 export default {
     init (page){

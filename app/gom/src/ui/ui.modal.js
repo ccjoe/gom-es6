@@ -1,7 +1,7 @@
 import $ from '../utils/fx';
 import View from '../core/view';
 
-let data = {
+let defaultData = {
     type: 'loading', //alert, confirm, topup, top, bottom,
     btns: {
         yes: '确定',
@@ -47,7 +47,7 @@ const noop = function(){};
  */
 class Modal extends View {
     constructor  (opts) {
-        var data = opts.data = $.extend({}, data, opts.data);
+        var data = opts.data = $.extend({}, defaultData, opts.data);
         opts.tmplname = 'ui.modal';
         super(opts);
         this.onYes = data.onYes || noop;
@@ -148,8 +148,10 @@ class Modal extends View {
         }else{
             this['scale'+inout+'Modal']();
         }
+
+        console.log(Modal.getMask(), this.mask, 'mask');
         if(this.mask){
-            this.getMask()[inout==='In'?'addClass':'removeClass']('modal-overlay-visible');
+            Modal.getMask()[inout==='In'?'addClass':'removeClass']('modal-overlay-visible');
         }
     }
     scaleInModal (){

@@ -264,9 +264,9 @@ class App {
 
         var oldHashArr = Url.getHashPath(later, true),
             newHashArr = Url.getHashPath(last, true),
-            isExistOld = _.compact(oldHashArr).length;
+            isExistOld = oldHashArr.filter(x=>!!x).length;
 
-        return later ? _.compact(newHashArr).length < isExistOld : null;
+        return later ? newHashArr.filter(x => !!x).length < isExistOld : null;
     }
     //判断是否存在CRO而404
     isRouteNotFound (CRO){
