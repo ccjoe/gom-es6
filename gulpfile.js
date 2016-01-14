@@ -136,7 +136,10 @@ gulp.task('extras', function () {
 /*------------- Documents  ------------*/
 var docs_exec = require('child_process').exec;
 gulp.task('gom-docs', function(){
-    docs_exec('jsdoc -t ../minami -c "./docs-conf.json" -r ./app/gom/src/ --readme ./app/gom/readme.md -d ./app/gom/docs')
+    docs_exec('jsdoc -t ../minami -c "./docs-conf.json" -r ./app/gom/src/ --readme ./app/gom/readme.md -d ./app/gom/docs', function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+    })
 });
 
 gulp.task('gom',  function(){
