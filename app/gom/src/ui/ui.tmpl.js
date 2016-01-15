@@ -21,7 +21,7 @@ export const header = `{{ ['left', 'right'].map(function(posi){ }}
 export const list = `
 {{= data.card ? '<div class="card">' : '' }}
 <ul class="table-view">
-    {{ console.log(data, 'list'); data.list.map(function(item){ }}
+    {{ data.list.map(function(item){ }}
 
     <li class="{{= item.isDivider?'table-view-divider':'table-view-cell' }}{{= item.collapse ? ' table-view-collapse' : '' }}">
         {{ if(item.isDivider){ }}{{=item.title}}{{ return; } }}

@@ -107,7 +107,6 @@ var inheritAttrs = function (elem, toElem) {
                 $frag = inheritAttrs(wrap, frag);
                 wrap.replaceWith($frag);
                 this.wrapper = $frag;   //会this.wrapper指向替代后的位置
-                console.log(this.wrapper, 'this.wrapper');
             } else if (frag) {
                 wrap.html(frag)
             } else {
