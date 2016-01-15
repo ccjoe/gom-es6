@@ -4,7 +4,7 @@ import Select from '../ui.select';
 
 let District = function (){
     var provinces = [], citys = [], districts = [];
-    $.ajax({url: 'gom/src/data/district.json',
+    $.ajax({url: '/data/district.json',
         global:false,
         success:function(data){
         provinces = data.map(value => value['name']);

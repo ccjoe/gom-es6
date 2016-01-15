@@ -136,13 +136,17 @@ export default {
         showTimeSelect: function(isModal){
             isModal = isModal || false;
             var num = ['01','02','03','04','05','06','07','08','09'];
+            var minites = [];
+            for(var i=10; i<=60; i++){
+                minites.push(i);
+            }
             new Select({data: {
                 title: '时间选择器',
                 cascade: false,
                 //modal:isModal,
                 //wrapper: $('.content').last(),
                 level: 3,
-                list: {'1':['上午','下午'],'2': num.concat(_.range(10,13)), '3': num.concat(_.range(10,61))},
+                list: {'1':['上午','下午'],'2': num.concat(['10','11','12']), '3': num.concat(minites)},
                 onYes: function(val){
                     Modals.toast('选择的值为：' + val);
                 }
