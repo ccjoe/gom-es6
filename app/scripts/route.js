@@ -137,7 +137,7 @@ var router = {
     '/404': {
         tmplname: '404',
         data: {
-            url: ''     //引起404的地址，默认为空;
+            url: location.href     //引起404的地址，默认为空;
         }
     },
     '/500': {

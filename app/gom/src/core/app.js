@@ -179,7 +179,6 @@ class App {
             }
             where = !!~where.indexOf('?')?Url.getHTML5Hash(where):where; //过滤url仅获取search里的path部分
         }
-        console.log(where, 'where parse by goto');
         this[isstr ? '_routeByHash' : '_routeByCRO'](where);
     }
 
