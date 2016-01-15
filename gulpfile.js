@@ -19,7 +19,7 @@ var sass = require('gulp-ruby-sass');
 var minifyCss = require('gulp-minify-css');
 
 gulp.task('gom-scss', function () {
-    return sass(GOM_PATH + 'src/styles/gom.scss')
+    return sass('./app/gom/src/styles/gom.scss')
         .pipe(minifyCss())
         .pipe(gulp.dest('./.tmp/css/'));
 });
@@ -107,7 +107,8 @@ gulp.task('styles', function () {
 /*-------------------- FONTS -----------------*/
 gulp.task('fonts', function () {
     return gulp.src('app/gom/src/fonts/**/*.{eot,svg,ttf,woff,woff2}')//.concat('app/fonts/**/*'))
-        .pipe(gulp.dest('.tmp/fonts'));
+        .pipe(gulp.dest('.tmp/fonts'))
+        .pipe(gulp.dest('./dist/fonts'));
 });
 
 /*-------------------- IMAGES ----------------*/
@@ -180,7 +181,8 @@ gulp.task('serve', ['fonts', 'styles', 'scripts'], function () {
 
 /*--------------------- BUILD ----------------*/
 //'jshint',
-gulp.task('build', ['styles', 'scripts', 'fonts',  'html', 'images', 'extras'], function () {
+gulp.task('build', ['fonts', 'styles', 'scripts', 'images', 'extras'], function () {
+    gulp.start('html');
     return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 

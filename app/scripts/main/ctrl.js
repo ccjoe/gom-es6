@@ -1,7 +1,8 @@
 //import {UI} from '../../gom/src/gom';
 'use strict';
 var UI = Gom.UI;
-var data = '上面的列表是组件渲染方式，这里的文本数据是页面渲染的部分, GoM分页面渲染和ui组件渲染，其都继承于View对象,都有data属性，通过定义组织data，然后调用render方法可以实现不同的渲染方式';
+var data = '上面的列表是组件渲染方式，这里的文本数据是页面渲染的部分, GoM分页面渲染和ui组件渲染，其都继承于View对象,都有data属性，通过定义组织data，然后调用render方法可以实现不同的渲染方式<br>' +
+    '文档地址： <a href="http://fat128-online.qa.nt.ctripcorp.com:8765/docs/">去文档</a>';
 
 var viewList = {
     media: 'img', // 'icon'
