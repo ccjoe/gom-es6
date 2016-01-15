@@ -29,12 +29,12 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 
 /*gulp.task('gom-lib', function () {
-    return gulp.src([GOM_PATH + 'src/3rd/zepto.js', GOM_PATH + 'src/3rd/!(zepto.js)*.js'])
-        .pipe(uglify())
-        .pipe(concat('base.js'))
-        .pipe(gulp.dest('./.tmp/scripts/'))
-        .pipe(gulp.dest('./dist/scripts/'));
-});*/
+ return gulp.src([GOM_PATH + 'src/3rd/zepto.js', GOM_PATH + 'src/3rd/!(zepto.js)*.js'])
+ .pipe(uglify())
+ .pipe(concat('base.js'))
+ .pipe(gulp.dest('./.tmp/scripts/'))
+ .pipe(gulp.dest('./dist/scripts/'));
+ });*/
 
 /*------------- RequireJs  ES6 see next p------------*/
 var browserify = require('browserify');
@@ -48,14 +48,14 @@ function browserifyFile(opts){
         standalone: opts.standalone?opts.standalone:false,
         debug:true
     })
-    .external(opts.external?opts.external:'')
-    .transform(babelify)
-    .bundle()
-    .pipe(source(opts.filename))
-    .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
-    .pipe(gulp.dest('./.tmp/scripts'))
-    .pipe(uglify())
-    .pipe(gulp.dest('./dist/scripts'));
+        .external(opts.external?opts.external:'')
+        .transform(babelify)
+        .bundle()
+        .pipe(source(opts.filename))
+        .pipe(buffer()) // <----- convert from streaming to buffered vinyl file object
+        .pipe(gulp.dest('./.tmp/scripts'))
+        .pipe(uglify())
+        .pipe(gulp.dest('./dist/scripts'));
 }
 
 gulp.task('es6', function () {
@@ -124,6 +124,12 @@ gulp.task('images', function () {
         .pipe(gulp.dest('dist/images'));
 });
 
+/*---------------------DATA--------------------*/
+gulp.task('data', function () {
+    return gulp.src('app/data/**/*')
+
+        .pipe(gulp.dest('dist/data'));
+});
 /*-------------------- EXTRAS -----------------*/
 gulp.task('extras', function () {
     return gulp.src([
@@ -137,7 +143,7 @@ gulp.task('extras', function () {
 /*------------- Documents  ------------*/
 var docs_exec = require('child_process').exec;
 gulp.task('gom-docs', function(){
-    docs_exec('jsdoc -t ../minami -c "./docs-conf.json" -r ./app/gom/src/ --readme ./app/gom/readme.md -d ./app/gom/docs', function (err, stdout, stderr) {
+    docs_exec('jsdoc -t ../minami -c "./docs-conf.json" -r ./app/gom/src/ --readme ./app/gom/readme.md -d ./dist/docs', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
     })
@@ -181,7 +187,7 @@ gulp.task('serve', ['fonts', 'styles', 'scripts'], function () {
 
 /*--------------------- BUILD ----------------*/
 //'jshint',
-gulp.task('build', ['fonts', 'styles', 'scripts', 'images', 'extras'], function () {
+gulp.task('build', ['fonts', 'styles', 'scripts', 'images', 'extras', 'data', 'gom-docs'], function () {
     gulp.start('html');
     return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
