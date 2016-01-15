@@ -79,7 +79,7 @@ function swipe($elem, opts) {
     //callbacks
     var cbs = {
         startCallback: function (e) {
-            //e.preventDefault();
+            e.preventDefault();
             $.extend(point, doPoint.setNull); //重置初始值
             var cp = e.touches[0],
                 startPoint = {
@@ -92,6 +92,7 @@ function swipe($elem, opts) {
             opts.startCallback ? opts.startCallback(point, e) : null;
         },
         moveCallback: function (e) {
+            e.preventDefault();
             var cp = e.touches[0],
                 movePoint = {
                     moveX: cp.pageX,
@@ -109,7 +110,7 @@ function swipe($elem, opts) {
             opts.moveCallback ? opts.moveCallback(point, e) : null;
         },
         endCallback: function (e) {
-            //e.preventDefault();
+            e.preventDefault();
             if (!doPoint.checkRange(point)) {
                 return;
             }
