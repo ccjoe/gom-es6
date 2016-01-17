@@ -6,23 +6,12 @@ var $ = require('gulp-load-plugins')();
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 
-/*----------------------GOM Frame Build BEGIN-------------------------*/
 /*------------- Compiler template ------------*/
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
 
 var GOM_PATH = __dirname + '/app/gom/';
-
-/*------------- Compiler CSS ------------*/
-var sass = require('gulp-ruby-sass');
-var minifyCss = require('gulp-minify-css');
-
-gulp.task('gom-scss', function () {
-    return sass('./app/gom/src/styles/gom.scss')
-        .pipe(minifyCss())
-        .pipe(gulp.dest('./.tmp/css/'));
-});
 
 /*------------- Denpency Lib ------------*/
 var concat = require('gulp-concat');
@@ -43,7 +32,7 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 
 function browserifyFile(opts){
-    browserify({
+    return browserify({
         entries:[opts.entries],   //'./app/gom/src/gom.js',
         standalone: opts.standalone?opts.standalone:false,
         debug:true
@@ -56,29 +45,52 @@ function browserifyFile(opts){
         .pipe(gulp.dest('./.tmp/scripts'))
         .pipe(uglify())
         .pipe(gulp.dest('./dist/scripts'));
+
 }
 
-gulp.task('es6', function () {
+gulp.task('es6:gom', function () {
     browserifyFile({
         entries: './app/gom/src/gom.js',
         filename: 'gom.js',
         standalone: 'Gom'
-    });
+    }).pipe(gulp.dest('./app/gom/build/scripts'));
+});
 
+gulp.task('es6:app', function () {
     browserifyFile({
         entries: './app/scripts/app.js',
         filename: 'app.js',
         //external: './app/gom/src/gom.js'
     });
 });
-/*----------------------GOM Frame Build END-------------------------*/
 
-/*--------------------APP EXAMPLE DEV AND BUILD BEGIN-----------------------*/
+gulp.task('es6', function () {
+    gulp.start('es6:gom', 'es6:app');
+});
+
+
 /*--------------------- SASS ----------------*/
-gulp.task('app-styles', function () {
+/*------------- Compiler CSS ------------*/
+var sass = require('gulp-ruby-sass');
+var minifyCss = require('gulp-minify-css');
+
+gulp.task('styles:gom', function () {
+    return sass('./app/gom/src/styles/gom.scss')
+        .pipe(minifyCss())
+        .pipe(gulp.dest('./app/gom/build/css/'))
+        .pipe(gulp.dest('./.tmp/css/'))
+        .pipe(gulp.dest('./dist/css/'));
+});
+
+gulp.task('styles:app', function () {
     return sass('app/styles/main.scss')
         .pipe(minifyCss())
-        .pipe(gulp.dest('./.tmp/css/'));
+        .pipe(gulp.dest('./.tmp/css/'))
+        .pipe(gulp.dest('./dist/css/'))
+});
+
+gulp.task('styles', ['styles:gom'], function () {
+    gulp.start('styles:app');
 });
 
 /*--------------------- HTML ----------------*/
@@ -94,19 +106,11 @@ gulp.task('html', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('scripts', function () {
-    //gulp.start('gom-lib');
-    gulp.start('es6');
-});
-
-gulp.task('styles', function () {
-    gulp.start('gom-scss');
-    gulp.start('app-styles');
-});
 
 /*-------------------- FONTS -----------------*/
 gulp.task('fonts', function () {
     return gulp.src('app/gom/src/fonts/**/*.{eot,svg,ttf,woff,woff2}')//.concat('app/fonts/**/*'))
+        .pipe(gulp.dest('./app/gom/build/fonts'))
         .pipe(gulp.dest('.tmp/fonts'))
         .pipe(gulp.dest('./dist/fonts'));
 });
@@ -130,6 +134,7 @@ gulp.task('data', function () {
 
         .pipe(gulp.dest('dist/data'));
 });
+
 /*-------------------- EXTRAS -----------------*/
 gulp.task('extras', function () {
     return gulp.src([
@@ -142,20 +147,16 @@ gulp.task('extras', function () {
 
 /*------------- Documents  ------------*/
 var docs_exec = require('child_process').exec;
-gulp.task('gom-docs', function(){
+gulp.task('docs:gom', function(){
     docs_exec('jsdoc -t ../minami -c "./docs-conf.json" -r ./app/gom/src/ --readme ./app/gom/readme.md -d ./dist/docs', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
     })
 });
 
-gulp.task('gom',  function(){
-    gulp.start('gom-docs');
-});
-
 /*--------------------- SERVER ----------------*/
-gulp.task('clean', require('del').bind(null, ['.tmp', 'dist']));
-gulp.task('serve', ['fonts', 'styles', 'scripts'], function () {
+gulp.task('clean', require('del').bind(null, ['.tmp', '.sass-cache', 'dist', 'app/gom/build']));
+gulp.task('serve', ['fonts', 'styles', 'es6'], function () {
     browserSync({
         //notify: false,
         port: 9000,
@@ -176,7 +177,7 @@ gulp.task('serve', ['fonts', 'styles', 'scripts'], function () {
         '.tmp/fonts/**/*'
     ]).on('change', reload);
     //监听框架变化并作相应处理
-    gulp.watch('app/gom/src/styles/**/*.scss', ['gom-scss']);
+    gulp.watch('app/gom/src/styles/**/*.scss', ['styles:gom']);
     gulp.watch('app/gom/src/**/*.js', ['es6']);
     gulp.watch('app/scripts/**/*.js', ['es6']);
     //监听APP变化并作相应处理
@@ -185,10 +186,14 @@ gulp.task('serve', ['fonts', 'styles', 'scripts'], function () {
     //gulp.watch('bower.json', ['wiredep', 'fonts']);
 });
 
-/*--------------------- BUILD ----------------*/
+/*--------------------- BUILD APP----------------*/
 //'jshint',
-gulp.task('build', ['fonts', 'styles', 'scripts', 'images', 'extras', 'data', 'gom-docs'], function () {
-    gulp.start('html');
+gulp.task('build:gom', ['styles:gom', 'es6:gom', 'fonts'], function(){
+    gulp.start('docs:gom');
+});
+
+gulp.task('build', ['styles', 'es6', 'fonts', 'images', 'extras', 'data', 'html'], function () {
+    gulp.start('docs:gom');
     return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 

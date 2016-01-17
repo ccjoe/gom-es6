@@ -76,14 +76,14 @@ export default {
                  onFront: function(){
                      /*ajax  请求结束后，改变hold的状态即可*/
                      var that = this;
-                     $.get('/views/viewdoc/scroll-x.html', function(data){
+                     $.get('views/viewdoc/scroll-x.html', function(data){
                          that.hideFresh();
                      })
                  },       //滚动到上时
                  onEnd:  function(){
                      /*ajax  请求结束后，改变hold的状态即可*/
                      var that = this;
-                     $.get('/views/viewdoc/scroll-y.html', function(data){
+                     $.get('views/viewdoc/scroll-y.html', function(data){
                          that.hideFresh('end');
                      })
                  }   // 滚动到下时

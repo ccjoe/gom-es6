@@ -7,7 +7,7 @@ export const button = `<button class="btn btn-{{= data.type }} {{= data.outline 
 </button>`;
 
 export const header = `{{ ['left', 'right'].map(function(posi){ }}
-{{ let type= data[posi].type, text = data[posi].text, icon=data[posi].icon || 'icon-'+posi+'-nav'; }}
+{{ var type= data[posi].type, text = data[posi].text, icon=data[posi].icon || 'icon-'+posi+'-nav'; }}
 {{ if(type === 'button'){ }}<button class="btn pull-{{=posi}}">{{= text?text:'' }}</button>{{ } }}
 {{ if(type === 'icon'){  }}<a class="icon {{= icon }} pull-{{=posi}}">{{= text?text:'' }}</a>{{ } }}
 {{ if(type === 'link'){  }}<button class="btn btn-link btn-nav pull-{{=posi}}">{{= text?text:'' }}</button>{{ } }}
@@ -75,7 +75,7 @@ export const modal = `
 </div>
 {{ }else{ }}
 <div class="modal-toast modal-{{=data.type}}" >
-    {{ let type = /toast-(\\w+)/.exec(data.type)[1] }}
+    {{ var type = /toast-(\\w+)/.exec(data.type)[1] }}
     <span class="icon icon-{{= type==='info' ? 'info' : (type==='error'?'close': 'check')  }}">{{=data.content}}</span>
 </div>
 {{ } }}`;
