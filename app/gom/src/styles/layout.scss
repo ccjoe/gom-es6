@@ -51,4 +51,7 @@ body, .ui-modal, .modal-overlay, input, textarea, select, header, footer, sectio
             content: '';
         }
     }
+    img.media-object.pull-left{
+        max-width:100px;
+    }
 }

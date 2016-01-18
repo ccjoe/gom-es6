@@ -104,8 +104,6 @@ function swipe($elem, opts) {
             //console.log(doPoint.checkRange(point), 'checkRange');
             if (!doPoint.checkRange(point)) {
                 return;
-            }else{
-                e.preventDefault();
             }
             opts.moveCallback ? opts.moveCallback(point, e) : null;
         },

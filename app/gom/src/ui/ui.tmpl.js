@@ -18,8 +18,7 @@ export const header = `{{ ['left', 'right'].map(function(posi){ }}
     {{ if(data.subtitle){ }}<h2 class="subtitle">{{=data.subtitle}}</h2>{{ } }}
 </div>`;
 
-export const list = `
-{{= data.card ? '<div class="card">' : '' }}
+export const list = `{{= data.card ? '<div class="card">' : '' }}
 <ul class="table-view">
     {{ data.list.map(function(item){ }}
     <li class="{{= item.isDivider?'table-view-divider':'table-view-cell' }}{{= item.collapse ? ' table-view-collapse' : '' }}{{=item.badge === void 0 ? ' table-view-full' : ''}}">
@@ -41,8 +40,7 @@ export const list = `
     </li>
     {{  }); }}
 </ul>
-{{= data.card ? '</div>' : '' }}
-`;
+{{= data.card ? '</div>' : '' }}`;
 
 export const modal = `
 {{ if(data.type.indexOf('toast') === -1 ){ }}
@@ -94,9 +92,13 @@ export const switcher = `{{ var switchType = /(^\\w+)-?(\\w+)?/.exec(data.type),
     <div class="switch-wrapper slide-wrapper" index="0">
         <!--<div class="slide-slide slide-slide-active"></div>
         <div class="slide-slide slide-slide-next"></div>-->
+
         {{data.list.map(function(item, i){ }}
             <div class="switch-item control-content">{{=item.content}}</div>
         {{ }); }}
+        {{ if(data.isloop){ }}
+         <div class="switch-item switch-item-copy control-content">{{=data.list[0].content }}</div>
+        {{ } }}
     </div>
     {{ if(!isSlide && position==='bottom'){ }}
     <nav class="bar bar-tab switch-pagination">

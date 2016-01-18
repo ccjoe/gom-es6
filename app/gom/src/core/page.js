@@ -159,13 +159,15 @@ class Page extends View{
 
     //渲染页面后自动实例化组件，去支持声明式初始UI组件, 组件式的内容作为title, data-opts作为参数对象, 若有重复，以data-opts为主
     //声明式初始UI组件初始隐藏，解析后显示.
-    initWidgetUI(){
+    initWidgetUI($root=$('body')){
         var $it, $t, tdata, uitype, uiopts, uidata, $items, hasItemsLen, that = this;
-        $('body').find('[data-ui-widget]').each(function(i, it){
+        let $widgets = $root.find('[data-ui-widget]');
+        if(!$widgets.length) return;
+        $widgets.each(function(i, it){
             $it = $(it);
             uitype = $it.data('ui-widget');
             uiopts = $it.data('opts');
-            $items = $it.find('item');
+            $items = $it.find('> item');
             hasItemsLen = $items.length;
             //判断是否是列表类组件对象，简言之：获取title 或 列表时的title与content
             uidata = {};
@@ -175,18 +177,20 @@ class Page extends View{
                     $t = $items.eq(t);
                     tdata = uidata.list[t] = {};
                     tdata['title'] = $t.attr('title');
+                    //$itemCon = $($t.html());
+                    //that.initWidgetUI($itemCon);
                     tdata['content'] = $t.html();
                     Object.assign(tdata, Page.getElemPropsObject($t));     //将其余的属性对象数据赋上.
                 }
-                console.log(uidata, uitype+'uititle');
             }else{
                 uidata.title = $it.text();
+                Object.assign(uidata, Page.getElemPropsObject($it));     //将其余的属性对象数据赋上.
             }
             //try{
-                that.widgets[i] = new UI[uitype]({
-                    wrapper: $it,
-                    data: $.extend({},  uidata, uiopts)
-                });
+            that.widgets[i] = new UI[uitype]({
+                wrapper: $it,
+                data: $.extend({},  uidata, uiopts)
+            });
             //}catch(e){
             //    console.warn(uitype + '组件定义错误，UI对象上不存在此组件！');
             //}
@@ -194,6 +198,8 @@ class Page extends View{
             $it.data('widget', that.widgets[i]);
             $it.removeAttr('data-ui-widget');
         });
+        //再执行，解决声明式嵌套
+        this.initWidgetUI();
     }
     /**
      * 设置Header,这里仅设置主标题和副标题。 如果需要设置更多，可以获取使用header实例的update方法
