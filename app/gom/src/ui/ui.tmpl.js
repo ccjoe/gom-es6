@@ -22,19 +22,16 @@ export const list = `
 {{= data.card ? '<div class="card">' : '' }}
 <ul class="table-view">
     {{ data.list.map(function(item){ }}
-
-    <li class="{{= item.isDivider?'table-view-divider':'table-view-cell' }}{{= item.collapse ? ' table-view-collapse' : '' }}">
+    <li class="{{= item.isDivider?'table-view-divider':'table-view-cell' }}{{= item.collapse ? ' table-view-collapse' : '' }}{{=item.badge === void 0 ? ' table-view-full' : ''}}">
         {{ if(item.isDivider){ }}{{=item.title}}{{ return; } }}
         <a class="navigate-right" href="{{= item.hash ? item.hash : 'javascript:' }}">
             {{ if(item.badge !== void 0){ }}
             <span class="badge">{{=item.badge}}</span>
             {{ } }}
-            {{ if(data.media){ }}
             {{ if(data.media === 'img' && item.img){ }}
             <img class="media-object pull-left" src="{{= item.img }}">
-            {{ }else{ }}
+            {{ }else if(data.media === 'icon'){ }}
             <span class="media-object pull-left icon {{= item.icon }}"></span>
-            {{ } }}
             {{ } }}
             <div class="media-body">
                 {{=item.title}}

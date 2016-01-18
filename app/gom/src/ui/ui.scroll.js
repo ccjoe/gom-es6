@@ -171,19 +171,17 @@ class Scroll {
      * @param {string} [pos=front] 显示刷新，头部刷新front,尾部end
      * @return  {number} 步长数
      */
-    showFresh (pos){
-        pos = pos || 'front';
+    showFresh (pos='front'){
         $('.ui-scroll-'+pos).addClass('refreshing').removeClass('pull-up');
         this.hold = true;
     }
     /**
-     * 滚动到底请求数据时需要调用
+     * 滚动到底请求数据时需要调用, 里面会释放hold。所以当上下顶请求数据时只要返回状态需要调用这个结束请求态。
      * @method Gom.UI.Scroll#hideFresh
      * @param {string} [pos=front] 隐藏刷新，头部刷新front,尾部end
      * @return  {number} 步长数
      */
-    hideFresh (pos){
-        pos = pos || 'front';
+    hideFresh (pos='front'){
         var that = this;
         var toPos = pos==='front'?0:-(this.getMaxTrans());
         that.scrollTo(toPos, function(){

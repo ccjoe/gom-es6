@@ -11,6 +11,7 @@ import viewdocScroll   from './viewdoc/scroll_ctrl';
 import viewdocForms   from './viewdoc/forms_ctrl';
 import pluginsdocSwipe   from './pluginsdoc/swipe_ctrl';
 import modeldocIndex from './modeldoc/index_ctrl';
+import pagedocPage from './pagedoc/page_ctrl';
 
 //tmpl html FileName; ctrl js FileName
 var router = {
@@ -125,8 +126,14 @@ var router = {
         }
     },
     '/pagedoc': {
-        tmplname: '/pagedoc/index',
-        title: 'Page对象及Ctrl说明'
+        '/':{
+            tmplname: '/pagedoc/page',
+            ctrl: pagedocPage
+        },
+        '/desc': {
+            tmplname: '/pagedoc/desc',
+            title: 'Page对象及Ctrl说明',
+        }
     },
     '/modeldoc': {
         tmplname: '/modeldoc/index',

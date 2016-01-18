@@ -140,40 +140,59 @@ class Page extends View{
                 });
         }
     }
+
+    /**
+     * 获取元素上所有属性与值的对象
+     * Gom.Page.getElemPropsObject
+     * @param elem
+     * @returns {object}
+     */
+    static getElemPropsObject (elem) {
+        var attributes = elem.prop("attributes"), props = {};
+        $.each(attributes, function () {
+            if (this.name !== 'class') {
+                props[this.name] = this.value;
+            }
+        });
+        return props;
+    }
+
     //渲染页面后自动实例化组件，去支持声明式初始UI组件, 组件式的内容作为title, data-opts作为参数对象, 若有重复，以data-opts为主
     //声明式初始UI组件初始隐藏，解析后显示.
     initWidgetUI(){
-        var $t, uitype, uiopts, uititle, $items, hasItemsLen, that = this;
+        var $it, $t, tdata, uitype, uiopts, uidata, $items, hasItemsLen, that = this;
         $('body').find('[data-ui-widget]').each(function(i, it){
-            $t = $(it);
-            uitype = $t.data('ui-widget');
-            uiopts = $t.data('opts');
-            $items = $t.find('item');
+            $it = $(it);
+            uitype = $it.data('ui-widget');
+            uiopts = $it.data('opts');
+            $items = $it.find('item');
             hasItemsLen = $items.length;
             //判断是否是列表类组件对象，简言之：获取title 或 列表时的title与content
+            uidata = {};
             if(hasItemsLen){
-                uititle = [];
+                uidata.list = [];
                 for(var t=0; t<hasItemsLen; t++){
-                    uititle[t] = {};
-                    uititle[t]['title'] = $items.eq(t).attr('title');
-                    uititle[t]['content'] = $items.eq(t).html();
+                    $t = $items.eq(t);
+                    tdata = uidata.list[t] = {};
+                    tdata['title'] = $t.attr('title');
+                    tdata['content'] = $t.html();
+                    Object.assign(tdata, Page.getElemPropsObject($t));     //将其余的属性对象数据赋上.
                 }
-                uititle.list = uititle;
+                console.log(uidata, uitype+'uititle');
             }else{
-                uititle = {};
-                uititle.title = $t.text();
+                uidata.title = $it.text();
             }
             //try{
                 that.widgets[i] = new UI[uitype]({
-                    wrapper: $t,
-                    data: $.extend({},  uititle, uiopts)
+                    wrapper: $it,
+                    data: $.extend({},  uidata, uiopts)
                 });
             //}catch(e){
             //    console.warn(uitype + '组件定义错误，UI对象上不存在此组件！');
             //}
             that.widgets[i].render();
-            $t.data('widget', that.widgets[i]);
-            $t.removeAttr('data-ui-widget');
+            $it.data('widget', that.widgets[i]);
+            $it.removeAttr('data-ui-widget');
         });
     }
     /**

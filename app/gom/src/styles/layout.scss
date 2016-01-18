@@ -42,3 +42,13 @@ body, .ui-modal, .modal-overlay, input, textarea, select, header, footer, sectio
     opacity: 1;
     transform: translate3d(100%, 0, 0);
 }*/
+
+.table-view-full{
+    padding-right: 10px;
+    >a:not(.btn){
+        margin-right:-10px;
+        &:after{
+            content: '';
+        }
+    }
+}

@@ -57,15 +57,18 @@ div[ui-widget]{
     }
     .slide-guide{
         position: absolute;
-        bottom: 50px;
+        bottom: 0;
         width: 100%;
-        text-align: center;
+        text-align: left;
         color: #fff;
-        padding: 10px 0;
+        padding: 10px;  margin: 0;
         background-color: rgba(0,0,0,.6);
         button{
             color: #000;
         }
+    }
+    .slide-pagination{
+        text-align: right;
     }
 }
 h3{
