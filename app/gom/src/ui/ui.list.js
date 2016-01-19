@@ -71,9 +71,7 @@ ListSet.render();
 class List extends View {
     constructor (opts) {
         opts.tmplname = 'ui.list';
-        opts.events = {
-            'click .table-view-divider.table-view-collapse': 'collapseListGroup'
-        };
+        opts.events = {'click .table-view-divider.table-view-collapse': 'collapseListGroup'};
         super(opts);
     }
 

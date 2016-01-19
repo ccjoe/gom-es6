@@ -200,7 +200,6 @@ class Slide extends View {
                 index--;
             }
         }
-        console.log(index, 'index2');
         return index;
     }
 
