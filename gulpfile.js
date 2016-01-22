@@ -31,13 +31,13 @@ var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 
-function browserifyFile(opts){
+function browserifyFile(opts) {
     return browserify({
-        entries:[opts.entries],   //'./app/gom/src/gom.js',
-        standalone: opts.standalone?opts.standalone:false,
-        debug:true
-    })
-        .external(opts.external?opts.external:'')
+            entries: [opts.entries], //'./app/gom/src/gom.js',
+            standalone: opts.standalone ? opts.standalone : false,
+            debug: true
+        })
+        .external(opts.external ? opts.external : '')
         .transform(babelify)
         .bundle()
         .pipe(source(opts.filename))
@@ -48,7 +48,7 @@ function browserifyFile(opts){
 
 }
 
-gulp.task('es6:gom', function () {
+gulp.task('es6:gom', function() {
     browserifyFile({
         entries: './app/gom/src/gom.js',
         filename: 'gom.js',
@@ -56,7 +56,7 @@ gulp.task('es6:gom', function () {
     }).pipe(gulp.dest('./app/gom/build/scripts'));
 });
 
-gulp.task('es6:app', function () {
+gulp.task('es6:app', function() {
     browserifyFile({
         entries: './app/scripts/app.js',
         filename: 'app.js',
@@ -64,7 +64,7 @@ gulp.task('es6:app', function () {
     });
 });
 
-gulp.task('es6', function () {
+gulp.task('es6', function() {
     gulp.start('es6:gom', 'es6:app');
 });
 
@@ -74,7 +74,7 @@ gulp.task('es6', function () {
 var sass = require('gulp-ruby-sass');
 var minifyCss = require('gulp-minify-css');
 
-gulp.task('styles:gom', function () {
+gulp.task('styles:gom', function() {
     return sass('./app/gom/src/styles/gom.scss')
         .pipe(minifyCss())
         .pipe(gulp.dest('./app/gom/build/css/'))
@@ -82,61 +82,68 @@ gulp.task('styles:gom', function () {
         .pipe(gulp.dest('./dist/css/'));
 });
 
-gulp.task('styles:app', function () {
+gulp.task('styles:app', function() {
     return sass('app/styles/main.scss')
         .pipe(minifyCss())
         .pipe(gulp.dest('./.tmp/css/'))
         .pipe(gulp.dest('./dist/css/'))
 });
 
-gulp.task('styles', ['styles:gom'], function () {
+gulp.task('styles', ['styles:gom'], function() {
     gulp.start('styles:app');
 });
 
 /*--------------------- HTML ----------------*/
-gulp.task('html', function () {
-    var assets = $.useref.assets({searchPath: ['.tmp']});
+gulp.task('html', function() {
+    var assets = $.useref.assets({
+        searchPath: ['.tmp']
+    });
     return gulp.src('app/**/*.html')
         .pipe(assets)
         .pipe($.if('*.js', $.uglify()))
         .pipe($.if('*.css', $.csso()))
         .pipe(assets.restore())
         .pipe($.useref())
-        .pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))
+        .pipe($.if('*.html', $.minifyHtml({
+            conditionals: true,
+            loose: true
+        })))
         .pipe(gulp.dest('dist'));
 });
 
 
 /*-------------------- FONTS -----------------*/
-gulp.task('fonts', function () {
-    return gulp.src('app/gom/src/fonts/**/*.{eot,svg,ttf,woff,woff2}')//.concat('app/fonts/**/*'))
+gulp.task('fonts', function() {
+    return gulp.src('app/gom/src/fonts/**/*.{eot,svg,ttf,woff,woff2}') //.concat('app/fonts/**/*'))
         .pipe(gulp.dest('./app/gom/build/fonts'))
         .pipe(gulp.dest('.tmp/fonts'))
         .pipe(gulp.dest('./dist/fonts'));
 });
 
 /*-------------------- IMAGES ----------------*/
-gulp.task('images', function () {
+gulp.task('images', function() {
     return gulp.src('app/images/**/*')
         .pipe($.cache($.imagemin({
             progressive: true,
             interlaced: true,
             // don't remove IDs from SVGs, they are often used
             // as hooks for embedding and styling
-            svgoPlugins: [{cleanupIDs: false}]
+            svgoPlugins: [{
+                cleanupIDs: false
+            }]
         })))
         .pipe(gulp.dest('dist/images'));
 });
 
 /*---------------------DATA--------------------*/
-gulp.task('data', function () {
+gulp.task('data', function() {
     return gulp.src('app/data/**/*')
 
-        .pipe(gulp.dest('dist/data'));
+    .pipe(gulp.dest('dist/data'));
 });
 
 /*-------------------- EXTRAS -----------------*/
-gulp.task('extras', function () {
+gulp.task('extras', function() {
     return gulp.src([
         'app/*.*',
         '!app/*.html'
@@ -147,8 +154,8 @@ gulp.task('extras', function () {
 
 /*------------- Documents  ------------*/
 var docs_exec = require('child_process').exec;
-gulp.task('docs:gom', function(){
-    docs_exec('jsdoc -t ../minami -c "./docs-conf.json" -r ./app/gom/src/ --readme ./app/gom/readme.md -d ./dist/docs', function (err, stdout, stderr) {
+gulp.task('docs:gom', function() {
+    docs_exec('jsdoc -t ../minami -c "./docs-conf.json" -r ./app/gom/src/ --readme ./app/gom/readme.md -d ./dist/docs', function(err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
     })
@@ -156,7 +163,7 @@ gulp.task('docs:gom', function(){
 
 /*--------------------- SERVER ----------------*/
 gulp.task('clean', require('del').bind(null, ['.tmp', '.sass-cache', 'dist', 'app/gom/build']));
-gulp.task('serve', ['fonts', 'styles', 'es6'], function () {
+gulp.task('serve', ['fonts', 'styles', 'es6'], function() {
     browserSync({
         //notify: false,
         port: 9000,
@@ -188,16 +195,19 @@ gulp.task('serve', ['fonts', 'styles', 'es6'], function () {
 
 /*--------------------- BUILD APP----------------*/
 //'jshint',
-gulp.task('build:gom', ['styles:gom', 'es6:gom', 'fonts'], function(){
+gulp.task('build:gom', ['styles:gom', 'es6:gom', 'fonts'], function() {
     gulp.start('docs:gom');
 });
 
-gulp.task('build', ['styles', 'es6', 'fonts', 'images', 'extras', 'data', 'html'], function () {
+gulp.task('build', ['styles', 'es6', 'fonts', 'images', 'extras', 'data', 'html'], function() {
     gulp.start('docs:gom');
-    return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
+    return gulp.src('dist/**/*').pipe($.size({
+        title: 'build',
+        gzip: true
+    }));
 });
 
 /*------------------ DEFAULT ------------------*/
-gulp.task('default', ['clean'], function () {
+gulp.task('default', ['clean'], function() {
     gulp.start('build');
 });

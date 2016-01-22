@@ -17,7 +17,7 @@ var defaultBtn = {
       side.content = sidesDesc + ListSet;
       side.setContent();
  */
-class Sides extends View {
+ class Sides extends View {
     constructor  (opts) {
         opts.data = Object.assign({}, defaultBtn, opts.data);
         opts.tmplname = 'ui.sides';
@@ -75,4 +75,4 @@ class Sides extends View {
     }
 }
 
-export default  Sides;
+export default Sides;
