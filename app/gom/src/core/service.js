@@ -39,7 +39,7 @@ $.ajaxSettings.error = function(xhr, errorType) {
         Modals.toast('信号偏弱，访问超时', 'error');
     } else if (errorType === 'error') {
         var statusCode = xhr.status;
-        Modals.toast('请求发生错误,状态码:' +statusCode, 'error');
+        Modals.toast('请求发生错误,HTTP状态码:' + (statusCode?statusCode:'空'), 'error');
         if (statusCode === 404 || statusCode === 500) {   //处理状态码错误
             //window.location.href = '?' + statusCode;
         }

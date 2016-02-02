@@ -26,11 +26,14 @@ FastClick(document.body);
 import './3rd/zepto';
 import './3rd/zepto.history';
 
+//import "babel-polyfill";
+
 import Service from './core/service';
 import Page from './core/page';
 import * as UI from './ui/ui';
 import View from './core/view';
 import App from './core/app';
 import Utils from './utils/utils';
+
 export {Service, Page, View, UI, Utils, App};
 

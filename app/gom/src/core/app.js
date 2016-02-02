@@ -52,6 +52,8 @@ class App {
      */
     run (callback){       //Gom.App初始化
         var that = this;
+        this.cacheView();
+
         var isHistoryApi = !!(window.history && history.pushState);
         if(!isHistoryApi){
             return;
@@ -66,6 +68,14 @@ class App {
         this._initHref();
     }
 
+    cacheView () {
+        const storeVer =  Store.get('GOM_APP_VER'), setVer = config.VERSION;
+        if(setVer !== storeVer){    //读取的版本号与缓存不一致则全部清除
+            Store.cls();
+            Store.set('GOM_APP_VER', setVer);
+            console.warn('STORE缓存已清除并重置了版本号为:' + setVer);
+        }
+    }
     _initHref (){
         //对所有链接进行html5处理
         //? 站内链接跳转
@@ -88,15 +98,16 @@ class App {
     getViewTmpl (tmplname, callback){
         var  that = this, expires = +that.config.EXPIRES;
         if(expires>0){
-            var view = Store.get(tmplname);
+            var view = Store.get('GOM_VIEW_'+tmplname);
             if(!!view){
                 callback?callback(view):null;
                 return;
             }
         }
-        $.ajax({url:'views/'+tmplname+'.html', dataType:'html', success  (tmpl){
+        const feurl = config.fePath?config.fePath:'';
+        $.ajax({url:feurl + 'views/'+tmplname+'.html', dataType:'html', success  (tmpl){
             if(expires>0){
-                Store.set(tmplname, tmpl, expires);
+                Store.set('GOM_VIEW_'+tmplname, tmpl, expires);
             }
             callback?callback(tmpl):null;
         }});

@@ -1,3 +1,4 @@
+import Utils from '../utils/utils';
 import Store from '../utils/store';
 import * as UItmpl from '../ui/ui.tmpl';
 
@@ -12,27 +13,6 @@ var parseTmpl = tmplID => {
     }
     return tmpl;
 };
-
-function _compile(template){
-    var evalExpr = /\{\{=(.+?)\}\}/g;
-    var expr = /\{\{(.+?)\}\}/g;
-
-    template = template
-        .replace(evalExpr, '`); \n  echo( $1 ); \n  echo(`')
-        .replace(expr, '`); \n $1 \n  echo(`');
-    template = 'echo(`' + template + '`);';
-    var script = `(function parse(data){
-        var output = "";
-        function echo(html){
-          output += html;
-        }
-        ${ template }
-        return output;
-      })`;
-    return script;
-}
-
-
 
 //toElem继承elem所有属性但排除组件定义属性, class会叠加，其它会替换，组件定义的相关属性不会继承
 var inheritAttrs = function (elem, toElem) {
@@ -82,11 +62,11 @@ var inheritAttrs = function (elem, toElem) {
      * @param {object} data  -传入数据对象
      */
     static template (tmpl, data){
-        var parse = eval(_compile(tmpl));
+        tmpl = Utils.complier(tmpl);
         if(!data){
-            return tmpl;
+            return tmpl();
         }else{
-            return parse(data);
+            return tmpl({data: data});
         }
     }
     /**
@@ -100,9 +80,8 @@ var inheritAttrs = function (elem, toElem) {
             this.show();
             return this;
         }
-
         var frag = this.getHTMLFragment(), $frag;
-        if (wrap) {
+        if (wrap.length) {
             if (this.replace) {
                 $frag = inheritAttrs(wrap, frag);
                 wrap.replaceWith($frag);
@@ -154,7 +133,7 @@ var inheritAttrs = function (elem, toElem) {
      */
     getHTMLFragment (viewOrPartial='partial') {
         this.getHTMLTmpl(viewOrPartial);
-        return this.data ? View.template(this.tmpl, this.data): View.template(this.tmpl);
+        return (Object.keys(this.data).length !== 0) ? View.template(this.tmpl, this.data): View.template(this.tmpl);
     }
 
     /**

@@ -1,10 +1,9 @@
 <!doctype html>
 <html lang="">
-
 <head>
     <meta charset="utf-8">
     <meta name="description" content="H5 MVC APP">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"> <!-- Sets initial viewport load and disables zooming  -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"> <!--, minimal-ui Sets initial viewport load and disables zooming  -->
     <meta name="apple-mobile-web-app-capable" content="yes"> <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="GoMAPP"> <!-- 添加到主屏后的标题（iOS 6 新增） -->
@@ -18,20 +17,18 @@
     <meta name="browsermode" content="application"> <!-- UC应用模式 -->
     <meta name="x5-page-mode" content="app">  <!-- QQ应用模式 -->
     <meta name="msapplication-tap-highlight" content="no"> <!-- windows phone 点击无高光 -->
-    <title>h5 mvc</title>
+    <title>GOM APP</title>
     <link href="./favicon.ico" type="image/x-icon" rel=icon> <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css css/all.css --><!-- endbuild -->
+    <!-- build:css css/all.css -->
     <link rel="stylesheet" href="css/gom.css">
     <link rel="stylesheet" href="css/main.css">
-
+    <!-- endbuild -->
 </head>
 
 <body>
-<!--[if lt IE 10]><p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.<br>您正在使用的浏览器<strong>太过古老</strong>， 请<a href="http://browsehappy.com/">升级浏览器</a>来改善浏览体验!</p><![endif]-->
 <!--页面区-->
 <div id="page">
-    <!--页面区HEADER-->
-    <header id="header" class="bar bar-nav"  data-ui-widget="Header">GOM APP</header>
+    <header id="header" class="header bar bar-nav"  data-ui-widget="Header">GOM APP</header>
     <!--页面区主体内容-->
     <div class="ui-viewport" id="viewport">
 
@@ -43,9 +40,11 @@
 <div class="ui-sides" id="sides"></div>
 <div class="modal-overlay"></div>
 
-<!-- build:scripts scripts/all.scripts --><!-- endbuild -->
+<!-- build:js scripts/vendor.js -->
 <script src="scripts/gom.js"></script>
+<!-- endbuild -->
+<!-- build:js scripts/main.js -->
 <script src="scripts/app.js"></script>
-
+<!-- endbuild -->
 </body>
 </html>
