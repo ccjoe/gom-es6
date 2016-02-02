@@ -77,8 +77,9 @@ class Page extends View{
      * 渲染显示页面, 重写了Gom.View#render
      * 可以在ctrl的init方法里手动调用 page.render()，如果ctrl里不定义init方法则框架会处理
      * @method Gom.Page#render
+     * @param {object} selector  -一般情况不用传此参数，全局渲染页面，但更新局部视图时可以传入对应的选择器更新局部视图
      */
-    render () {
+    render (selector) {
         //没有指定this.tmplname先渲染空页面,由ctrl及组件去填充页面
         if(!this.tmplname){
             this.tmpl = '<div class="'+ (this.config.CLASSES.CONTENT.substring(1) || "gom-content") +'"></div>';
@@ -86,15 +87,32 @@ class Page extends View{
             return;
         }
         //指定了this.tmplname时获取页面模板
-        this.show();
+        this.show(selector);
+    }
+
+    /**
+     * 更新视图
+     * @method Gom.Page#update
+     * @param {object} data  -传入数据对象或数据某一属性，更新相应数据到UI
+     * @param {object} selector  -更新局部视图时对应的选择器
+     */
+    update (data, selector) {
+        if (data) {
+            this.data = $.extend({}, this.data, data);
+        }
+        this.render(selector);
     }
     /**
      * Gom.Page#render后的回调，显示页面的具体实现.
      * @method Gom.Page#show
      */
-    show(){
-        var isback = this.isback;
-        this.push(this.getHTMLFragment('view'), isback);
+    show(selector){
+        var wrap = this.getHTMLFragment('view');
+
+        if(selector){
+            wrap = $(wrap).find(selector);
+        }
+        this.push(wrap, selector ? $(selector) : void 0);
         //this._parseEvent();
         if (this.title || this.subtitle) {
             this.setHeader();
@@ -105,18 +123,20 @@ class Page extends View{
      * 页面转场 会保留最近的三个层次页面
      * @method Gom.Page#push
      * @param {element} dom    - 推入的htmlFragment
-     * @param {string} isback 前进与后退
+     * @param {element} $selector    - push到的位置, page默认为viewport
+     * @param {string} isback -前进与后退
      **/
-    push(dom, isback){
-        var $dc = $(this.wrapper ? this.wrapper : '#viewport');
+    push(dom, $selector= $(this.wrapper ? this.wrapper : '#viewport'), isback=this.isback){
+        var $dc = $selector;
         var from = !isback ? '0' : '100%',  //新层
             to = !isback ? '-20%' : '0',    //旧层
             lastfrom = !isback ? '100%' : '0',  //新层
             fromcss = 'translateX('+lastfrom+')';
 
-        //不是后退则追加dom
-        if(!isback){
+        if(isback===false){  //不是后退则追加dom
             $dc.append(dom);
+        }else if(isback === null || isback === void 0){  //否则替换（场景有update, 直接访问hash）
+            $dc.html(dom);
         }
         //后退时如果没有dom了，往前追加
         if($dc.find('.content').length===1 && isback){

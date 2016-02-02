@@ -5,10 +5,9 @@
 
 var isdebug = !!~location.search.indexOf('debug=1');
 window.config = {
-    //hostPath: '',       //相对域名根目录的路径，例如布署在a.com/b/c/下, hostPath即/b/c/(沿没实现,需验证)
+    fePath: '',
     VERSION: 'release', //发布时的版本号
     DEBUG: isdebug,
-    //GOM_PATH: isdebug ? '/gom/src/gom' : '/gom/build/gom',
     API_HOST: 'http://h5.jc.me:3000/api/',    //服务端API HOST
     STORE_VIEWS: true,                        //缓存模板
     EXPIRES: isdebug ? 0 : 24*3600*1000,      //缓存时间(24小时)
