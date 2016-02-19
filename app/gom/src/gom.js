@@ -22,7 +22,7 @@
  * 2.直接引入ComponentName(如Button)
  */
 import FastClick from './3rd/fastclick';
-FastClick(document.body);
+//FastClick(document.body);
 import './3rd/zepto';
 import './3rd/zepto.history';
 
