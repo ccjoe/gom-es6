@@ -64,15 +64,8 @@ var escapeChar = function(match) {
 
 var Utils = {
     version: '1.0.0',
-
     isWebApp: /http(s)?:\/\//.test(location.protocol),
     isInWeichat: ua.indexOf('MicroMessenger') > -1 ? true : false,
-    /**
-     * 判断是否在携程的APP中
-     * @prop {Boolean} Gom.Utils.isInCtripApp
-     */
-    isInCtripApp: !!(navigator.userAgent.match(/ctripwireless/i) && (window.location.protocol != "file:")),
-
     openApp: function(packageName){
         // 通过iframe的方式试图打开APP，如果能正常打开，会直接切换到APP，并自动阻止a标签的默认行为  否则打开a标签的href链接
         var ifr = document.createElement('iframe');
