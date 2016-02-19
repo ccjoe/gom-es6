@@ -154,7 +154,7 @@ $flexMid:                     true !default; //用于ie10 -ms前缀
     image-rendering: -moz-crisp-edges;         /* Firefox */
     image-rendering: -webkit-optimize-contrast;/* Webkit (non-standard naming) */
     image-rendering: crisp-edges;
-    -ms-interpolation-mode: nearest-neighbor;  
+    -ms-interpolation-mode: nearest-neighbor;
   } @else {
     @include prefixer-value(image-rendering, webkit moz);
   }
@@ -170,8 +170,8 @@ $flexMid:                     true !default; //用于ie10 -ms前缀
 // http://www.css3files.com/font/
 // 1 The eot fontfile. Can be omitted if you don`t want to support Internet Explorer prior to version 9 (including semicolon).
 // 2 Can also be omitted for Internet Explorer < 9. ?iefix prevents IE6 from interpreting all of the following. If the whole IE family (6 to 9) should be supported, 1 and 2 are needed.
-// 3 Can be omitted if iPad versions prior to iOS 4.2 shouldn’t be supported. 
-// 4 The ttf fontfile. Necessary to support (Mobile) Safari and Opera. 
+// 3 Can be omitted if iPad versions prior to iOS 4.2 shouldn’t be supported.
+// 4 The ttf fontfile. Necessary to support (Mobile) Safari and Opera.
 // 5 The woff fontfile for all modern browsers (best choice).
 @mixin font-face($font-family, $file-path, $weight: normal, $style: normal ) {
   @font-face {
@@ -489,7 +489,7 @@ $flexMid:                     true !default; //用于ie10 -ms前缀
   $originalPrefixForMicrosoft: $prefixForMicrosoft;
   $originalPrefixForOpera: $prefixForOpera;
   $originalPrefixNo: $prefixNo;
-  
+
   @each $prefix in $prefixes {
     @if $prefix == webkit and $originalPrefixForWebkit == true {
       @include disable-prefix-for-all();
@@ -699,18 +699,6 @@ $flexMid:                     true !default; //用于ie10 -ms前缀
 }
 
 
-// mask
-// http://www.w3.org/TR/css-masking-1/
-// http://ued.ctrip.com/blog/wp-content/webkitcss/index.html
-// https://www.webkit.org/blog/181/css-masks/
-// mask (background)
-// mask-image (background-image)
-// mask-position (background-position)
-// mask-size (background-size)
-// mask-repeat (background-repeat)
-// mask-clip (background-clip)
-// mask-origin (background-origin)
-// mask-box-image (border-image)
 //-----------------------------------------------------
 @mixin mask($mask...){
   @include prefixer(mask, $mask, webkit moz);
