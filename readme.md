@@ -14,3 +14,15 @@ gulpfile.js打包实现ES6 to ES5;推荐使用ES6但也可以自由选择是否�
 项目地址： [https://github.com/ccjoe/gom/tree/gom-es6](https://github.com/ccjoe/gom/tree/gom-es6)  
 示例地址： [https://github.com/ccjoe/gom-es6](https://github.com/ccjoe/gom-es6) [在线预览](http://f2ee.com/gom)  
 文档地址： [http://ccjoe.github.io/gom/docs](http://ccjoe.github.io/gom/docs) 或 [http://f2ee.com/gom/docs](http://f2ee.com/gom/docs) 
+
+- 运行此Demo
+```
+cd Dir/gom-es6/
+npm install
+gulp serve
+```
+
+- build此Demo
+```
+gulp build
+```
